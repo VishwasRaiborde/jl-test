@@ -85,8 +85,8 @@ public class Price {
     }
 
     @JsonProperty("now")
-    public Double getNow() {
-        return (Double) now;
+    public Object getNow() {
+        return now;
     }
 
     @JsonProperty("now")
