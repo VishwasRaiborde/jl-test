@@ -46,5 +46,12 @@ public class ProductMapperServiceTest {
 		}
 		
 	}
+	
+	@Test
+	public void testPriceReductionforNowPrice() throws NoDataFoundException, ClientCommunicationException {
+
+		assertTrue(Boolean.FALSE);
+		
+	}
 
 }
