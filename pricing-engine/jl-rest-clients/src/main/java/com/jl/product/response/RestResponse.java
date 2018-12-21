@@ -18,11 +18,11 @@ public class RestResponse<T> {
 		this.response = response;
 	}
 
-	public Boolean getIsSuccessfull() {
+	public Boolean isSuccessfull() {
 		return isSuccessfull;
 	}
 
-	public void setIsSuccessfull(Boolean isSuccessfull) {
+	public void setAsSuccessfull(Boolean isSuccessfull) {
 		this.isSuccessfull = isSuccessfull;
 	}
 

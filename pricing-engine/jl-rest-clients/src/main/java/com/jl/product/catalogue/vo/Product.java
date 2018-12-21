@@ -653,17 +653,37 @@ public class Product {
         return this;
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this);
-    }
+    }*/
 
+    
+    
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
         return this.additionalProperties;
     }
 
-    @JsonAnySetter
+    @Override
+	public String toString() {
+		return "Product [productId=" + productId + ", type=" + type + ", title=" + title + ", code=" + code
+				+ ", averageRating=" + averageRating + ", reviews=" + reviews + ", price=" + price + ", image=" + image
+				+ ", additionalServices=" + additionalServices + ", displaySpecialOffer=" + displaySpecialOffer
+				+ ", promoMessages=" + promoMessages + ", nonPromoMessage=" + nonPromoMessage + ", defaultSkuId="
+				+ defaultSkuId + ", colorSwatches=" + colorSwatches + ", colorSwatchSelected=" + colorSwatchSelected
+				+ ", colorWheelMessage=" + colorWheelMessage + ", outOfStock=" + outOfStock + ", emailMeWhenAvailable="
+				+ emailMeWhenAvailable + ", availabilityMessage=" + availabilityMessage + ", compare=" + compare
+				+ ", fabric=" + fabric + ", swatchAvailable=" + swatchAvailable + ", categoryQuickViewEnabled="
+				+ categoryQuickViewEnabled + ", swatchCategoryType=" + swatchCategoryType + ", brand=" + brand
+				+ ", ageRestriction=" + ageRestriction + ", isInStoreOnly=" + isInStoreOnly + ", isMadeToMeasure="
+				+ isMadeToMeasure + ", isBundle=" + isBundle + ", isProductSet=" + isProductSet
+				+ ", promotionalFeatures=" + promotionalFeatures + ", features=" + features + ", dynamicAttributes="
+				+ dynamicAttributes + ", directorate=" + directorate + ", releaseDateTimestamp=" + releaseDateTimestamp
+				+ ", additionalProperties=" + additionalProperties + "]";
+	}
+
+	@JsonAnySetter
     public void setAdditionalProperty(String name, Object value) {
         this.additionalProperties.put(name, value);
     }
@@ -689,5 +709,7 @@ public class Product {
         Product rhs = ((Product) other);
         return new EqualsBuilder().append(productId, rhs.productId).append(type, rhs.type).append(title, rhs.title).append(code, rhs.code).append(averageRating, rhs.averageRating).append(reviews, rhs.reviews).append(price, rhs.price).append(image, rhs.image).append(additionalServices, rhs.additionalServices).append(displaySpecialOffer, rhs.displaySpecialOffer).append(promoMessages, rhs.promoMessages).append(nonPromoMessage, rhs.nonPromoMessage).append(defaultSkuId, rhs.defaultSkuId).append(colorSwatches, rhs.colorSwatches).append(colorSwatchSelected, rhs.colorSwatchSelected).append(colorWheelMessage, rhs.colorWheelMessage).append(outOfStock, rhs.outOfStock).append(emailMeWhenAvailable, rhs.emailMeWhenAvailable).append(availabilityMessage, rhs.availabilityMessage).append(compare, rhs.compare).append(fabric, rhs.fabric).append(swatchAvailable, rhs.swatchAvailable).append(categoryQuickViewEnabled, rhs.categoryQuickViewEnabled).append(swatchCategoryType, rhs.swatchCategoryType).append(brand, rhs.brand).append(ageRestriction, rhs.ageRestriction).append(isInStoreOnly, rhs.isInStoreOnly).append(isMadeToMeasure, rhs.isMadeToMeasure).append(isBundle, rhs.isBundle).append(isProductSet, rhs.isProductSet).append(promotionalFeatures, rhs.promotionalFeatures).append(features, rhs.features).append(dynamicAttributes, rhs.dynamicAttributes).append(directorate, rhs.directorate).append(releaseDateTimestamp, rhs.releaseDateTimestamp).append(additionalProperties, rhs.additionalProperties).isEquals();
     }
+    
+    
 
 }

@@ -1,6 +1,10 @@
 package com.jl.rest.clients;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,6 +13,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.jl.configs.RestClientApp;
+import com.jl.product.catalogue.vo.Product;
+import com.jl.product.catalogue.vo.ProductCatalogue;
+import com.jl.product.response.RestResponse;
+import com.jl.property.EnvironmetProperties;
 import com.jl.rest.exception.ClientCommunicationException;
 import com.jl.rest.exception.NoDataFoundException;
 
@@ -18,20 +26,40 @@ public class ProductCatalogueClientTest {
 
 	@Autowired
 	private ProductCatalogueClient productCatalogueClient;
+	
+	private final static String VALID_REST_URL_PRODUCTS_CATALOGUE ="https://jl-nonprod-syst.apigee.net/v1/categories/600001506/products?key=2ALHCAAs6ikGRBoy6eTHA58RaG097Fma";
+	private final static String INVALID_REST_URL_PRODUCTS_CATALOGUE ="https://jl-nonprod-syst.apigee.net/v1/categories/600001506/products?key=2ALHCAAs6ikGRBoy6eTHA58RaG097Fma_INVALIDATED";
 
 	@Test
 	public void testProductProductLoadFail() throws NoDataFoundException, ClientCommunicationException {
-		productCatalogueClient.getProducts();
+
+		EnvironmetProperties.clearAllConfigs();
+		EnvironmetProperties.addProperty(EnvironmetProperties.REST_URL_PRODUCTS_CATALOGUE, VALID_REST_URL_PRODUCTS_CATALOGUE);
+		RestResponse<ProductCatalogue> restResponse = productCatalogueClient.getProducts();
+		assertTrue(restResponse.isSuccessfull());
 	}
 	
-	@Test
+	@Test(expected=ClientCommunicationException.class)
 	public void testProductProductSuccessfull() throws NoDataFoundException, ClientCommunicationException {
-		assertTrue(Boolean.FALSE); 
+		EnvironmetProperties.clearAllConfigs();
+		EnvironmetProperties.addProperty(EnvironmetProperties.REST_URL_PRODUCTS_CATALOGUE, INVALID_REST_URL_PRODUCTS_CATALOGUE);
+		RestResponse<ProductCatalogue> restResponse = productCatalogueClient.getProducts();
+		assertTrue(restResponse.isSuccessfull());
 	}
 	
 	@Test
-	public void testProductProductLoadWithDynamicPropertyChange() throws NoDataFoundException, ClientCommunicationException {
-		assertTrue(Boolean.FALSE); 
+	public void testProductExtractedSucessfully() throws NoDataFoundException, ClientCommunicationException {
+		EnvironmetProperties.clearAllConfigs();
+		EnvironmetProperties.addProperty(EnvironmetProperties.REST_URL_PRODUCTS_CATALOGUE, VALID_REST_URL_PRODUCTS_CATALOGUE);
+		RestResponse<ProductCatalogue> restResponse = productCatalogueClient.getProducts();
+		
+		assertTrue(restResponse.isSuccessfull());
+		
+		List<Product>  products = restResponse.getResponse().getProducts();
+		for(Product product:products) {
+			System.out.println(product.toString());
+		}
+		assertNotNull(products);
 	}
 	
 	@Test
