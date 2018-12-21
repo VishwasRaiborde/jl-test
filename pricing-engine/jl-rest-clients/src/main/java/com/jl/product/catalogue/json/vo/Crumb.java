@@ -1,5 +1,5 @@
 
-package com.jl.product.catalogue.vo;
+package com.jl.product.catalogue.json.vo;
 
 import java.util.HashMap;
 import java.util.Map;

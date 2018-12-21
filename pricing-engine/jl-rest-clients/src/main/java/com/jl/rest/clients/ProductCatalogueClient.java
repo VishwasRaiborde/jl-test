@@ -9,9 +9,9 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import com.jl.product.catalogue.vo.ProductCatalogue;
 import com.jl.product.response.ResponseStatus.ClientResponseStatus;
 import com.jl.property.EnvironmetProperties;
+import com.jl.product.catalogue.json.vo.ProductCatalogue;
 import com.jl.product.response.RestResponse;
 import com.jl.rest.exception.ClientCommunicationException;
 import com.jl.rest.exception.NoDataFoundException;
