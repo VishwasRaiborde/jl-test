@@ -7,10 +7,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import com.jl.product.json.Price;
-import com.jl.product.json.Product;
 import com.jl.product.vo.PriceVO;
 import com.jl.product.vo.ProductVO;
+import com.jl.product.vo.json.Price;
+import com.jl.product.vo.json.Product;
 
 @Service
 public class ProductDataMapperService extends BaseMapper {

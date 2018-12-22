@@ -1,4 +1,4 @@
-package com.jl.property;
+package com.jl.configs;
 
 import java.util.HashMap;
 import java.util.Map;

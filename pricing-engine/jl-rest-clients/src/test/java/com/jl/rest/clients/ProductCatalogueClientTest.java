@@ -12,14 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.jl.configs.EnvironmetProperties;
 import com.jl.configs.RestClientApp;
 import com.jl.product.clients.rest.ProductCatalogueClient;
 import com.jl.product.exception.ClientCommunicationException;
 import com.jl.product.exception.NoDataFoundException;
-import com.jl.product.json.Product;
-import com.jl.product.json.ProductCatalogue;
 import com.jl.product.response.RestResponse;
-import com.jl.property.EnvironmetProperties;
+import com.jl.product.vo.json.Product;
+import com.jl.product.vo.json.ProductCatalogue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = RestClientApp.class)

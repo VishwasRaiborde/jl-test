@@ -10,10 +10,10 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import com.jl.product.response.ResponseStatus.ClientResponseStatus;
-import com.jl.property.EnvironmetProperties;
+import com.jl.product.vo.json.ProductCatalogue;
+import com.jl.configs.EnvironmetProperties;
 import com.jl.product.exception.ClientCommunicationException;
 import com.jl.product.exception.NoDataFoundException;
-import com.jl.product.json.ProductCatalogue;
 import com.jl.product.response.RestResponse;
 
 @Service

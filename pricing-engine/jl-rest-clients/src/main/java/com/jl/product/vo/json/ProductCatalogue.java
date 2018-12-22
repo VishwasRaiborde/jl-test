@@ -1,5 +1,5 @@
 
-package com.jl.product.json;
+package com.jl.product.vo.json;
 
 import java.util.ArrayList;
 import java.util.HashMap;
