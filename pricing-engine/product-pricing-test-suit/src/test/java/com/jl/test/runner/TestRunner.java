@@ -14,10 +14,14 @@ import org.jbehave.core.reporters.CrossReference;
 import org.jbehave.core.reporters.Format;
 import org.jbehave.core.reporters.PrintStreamStepdocReporter;
 import org.jbehave.core.reporters.StoryReporterBuilder;
+import org.jbehave.core.steps.InjectableStepsFactory;
 import org.jbehave.core.steps.ParameterConverters;
 import org.jbehave.core.steps.SilentStepMonitor;
+import org.jbehave.core.steps.spring.SpringStepsFactory;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.github.reeda.springbootjbehave.LiveTestApp;
@@ -26,6 +30,9 @@ import com.github.reeda.springbootjbehave.LiveTestApp;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = LiveTestApp.class)
 public class TestRunner extends JUnitStories {
+	
+	@Autowired
+    private ApplicationContext applicationContext;
 
     public TestRunner() {
         initJBehaveConfiguration();
@@ -48,7 +55,11 @@ public class TestRunner extends JUnitStories {
                 .useStoryParser(new GherkinStoryParser())
                 .useStepMonitor(new SilentStepMonitor()));
     }
+    @Override
 
+    public InjectableStepsFactory stepsFactory() {
+        return new SpringStepsFactory(configuration(), applicationContext);
+    }
     protected List<String> storyPaths() {
         return new StoryFinder().findPaths(CodeLocations.codeLocationFromClass(this.getClass()), "**/*.story", "**/excluded*.story");
     }

@@ -28,7 +28,7 @@ public class ProductCatalogueUpAndRuniningStep {
 	private ProductCatalogueClient productCatalogueClient;
 
 	@Given("a rest url for product catalog is given $url")
-	public void givenARestUrlForProductCatalogIsGivenHttpsjlnonprodsystapigeenetv1categories600001506productskey2ALHCAAs6ikGRBoy6eTHA58RaG097Fma(
+	public void givenARestUrlForProductCatalogIsGiven(
 			@Named("url") String url) {
 		cachedMap.put("url", url);
 	}
@@ -42,6 +42,7 @@ public class ProductCatalogueUpAndRuniningStep {
 		try {
 			productCatalogue = productCatalogueClient.getProducts();
 			cachedMap.put("productCatalogue", productCatalogue);
+			System.out.println(productCatalogue.toString());
 		} catch (NoDataFoundException | ClientCommunicationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
