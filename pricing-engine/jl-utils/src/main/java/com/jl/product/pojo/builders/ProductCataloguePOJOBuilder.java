@@ -18,7 +18,7 @@ import com.sun.codemodel.JCodeModel;
 
 
 /**
- * generate POJO files from a given json file 
+ * generate POJO files from a given json file    
  * */
 public class ProductCataloguePOJOBuilder {
 	/**
