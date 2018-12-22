@@ -2,13 +2,21 @@ package com.jl.rest.product.service;
 
 public class ProductFilter {
 
-	public enum ProductFilterParams {
-		WITH_PRICE_REDUCTION, 
-		WITH_LABEL
+	enum ProductFilterSortOrder {
+		ASCENDING, DESCENDINMG
 	}
 
-	ProductFilter(String withPriceReduction, String withLabel) {
+	public Boolean withPriceReduction;
+	public ProductFilterSortOrder productFilterSortOrder;
 
+	public ProductFilter withPriceReduction(Boolean withPriceReduction) {
+		this.withPriceReduction = withPriceReduction;
+		return this;
+	}
+
+	public ProductFilter withPriceReductionSortOrder(ProductFilterSortOrder productFilterSortOrder) {
+		this.productFilterSortOrder = productFilterSortOrder;
+		return this;
 	}
 
 }

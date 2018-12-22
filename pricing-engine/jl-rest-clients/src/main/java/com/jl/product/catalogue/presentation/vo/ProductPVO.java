@@ -30,11 +30,14 @@ public class ProductPVO implements Serializable {
 
 	private String productId;
 	private String title;
-	private ColorSwatchPVO colorSwatches;
+	private String defaultSkuId;
 	private String nowPrice;
 	private String priceLabel; // ShowWasNow,ShowWasThenNow,ShowPercDscount
+	
+	private ColorSwatchPVO colorSwatches;
 	private String reducedPrice;
 	private PricePVO price;
+	
 
 	public String getProductId() {
 		return productId;

@@ -1,6 +1,5 @@
 package com.jl.rest.clients;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -22,7 +21,8 @@ import com.jl.product.response.RestResponse;
 import com.jl.property.EnvironmetProperties;
 import com.jl.rest.exception.ClientCommunicationException;
 import com.jl.rest.exception.NoDataFoundException;
-import com.jl.rest.product.service.DataMapperService;
+import com.jl.rest.product.mapper.ProductDataMapperService;
+import com.jl.rest.product.utils.PriceComputorUtils;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = RestClientApp.class)
@@ -33,16 +33,17 @@ public class ProductDataMapperServiceTest {
 	private ProductCatalogueClient productCatalogueClient;
 
 	@Autowired
-	DataMapperService dataMapperService;
+	ProductDataMapperService productDataMapperService;
 
 	@Test
-	public void testProductProductLoadFail() throws NoDataFoundException, ClientCommunicationException {
+	public void testProductProductLoad() throws NoDataFoundException, ClientCommunicationException {
 
 		EnvironmetProperties.clearAllConfigs();
 		EnvironmetProperties.addProperty(EnvironmetProperties.REST_URL_PRODUCTS_CATALOGUE,VALID_REST_URL_PRODUCTS_CATALOGUE);
 		RestResponse<ProductCatalogue> restResponse = productCatalogueClient.getProducts();
 		assertTrue(restResponse.isSuccessfull());
-		List<ProductPVO> productPVOs = dataMapperService.getFilteredProducts(restResponse.getResponse().getProducts());
+		
+		List<ProductPVO> productPVOs = productDataMapperService.copyFromJsonToVo(restResponse.getResponse().getProducts());
 		for (ProductPVO product : productPVOs) {
 			System.out.println(product.toString());
 		}
@@ -50,7 +51,7 @@ public class ProductDataMapperServiceTest {
 	}
 
 	@Test
-	public void testPriceReductionforNowPrice() throws NoDataFoundException, ClientCommunicationException {
+	public void testProductProductCopy() throws NoDataFoundException, ClientCommunicationException {
 		
 		List<Product> productPVOs = new ArrayList<Product>();
 		 
@@ -72,12 +73,44 @@ public class ProductDataMapperServiceTest {
 		productPVOs.add(productWithSimplePriceData);
 		productPVOs.add(productWithComplexPriceData);
 		
-		List<ProductPVO> productsWithReducedPrice = dataMapperService.getFilteredProducts(productPVOs);
-		for (ProductPVO product : productsWithReducedPrice) {
-			System.out.println(product.toString());
+		List<ProductPVO> products = productDataMapperService.copyFromJsonToVo(productPVOs);
+		List<ProductPVO> productsWithPriceREduction = new ArrayList<ProductPVO>();
+	
+		for (ProductPVO product : products) {
+			System.out.println("Products " + product.toString());
+			boolean hasPriceReduced = PriceComputorUtils.calculatePriceDrop(product.getPrice());
+			if(hasPriceReduced) {
+				productsWithPriceREduction.add(product);
+			}
+		}
+		for (ProductPVO product : productsWithPriceREduction) {
+			System.out.println("Reduced Products" + product.toString());
 		}
 
-		assertEquals(productsWithReducedPrice.get(1).getNowPrice() ,nowPricePVO);
+	}
+	
+	@Test
+	public void testFilterProductsWithPriceReduction() throws NoDataFoundException, ClientCommunicationException {
+		
+		EnvironmetProperties.clearAllConfigs();
+		EnvironmetProperties.addProperty(EnvironmetProperties.REST_URL_PRODUCTS_CATALOGUE,VALID_REST_URL_PRODUCTS_CATALOGUE);
+		
+		List<ProductPVO> productsWithPriceREduction = new ArrayList<ProductPVO>();
+		
+		RestResponse<ProductCatalogue> restResponse = productCatalogueClient.getProducts();
+		List<ProductPVO> products = productDataMapperService.copyFromJsonToVo(restResponse.getResponse().getProducts());
+		
+		for (ProductPVO product : products) {
+			System.out.println("Products " + product.toString());
+			boolean hasPriceReduced = PriceComputorUtils.calculatePriceDrop(product.getPrice());
+			if(hasPriceReduced) {
+				productsWithPriceREduction.add(product);
+			}
+		}
+		
+		for (ProductPVO product : productsWithPriceREduction) {
+			System.out.println("Reduced Products" + product.toString());
+		}
 
 	}
 

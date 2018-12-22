@@ -1,8 +1,8 @@
-package com.jl.rest.product.service;
+package com.jl.rest.product.utils;
 
 import com.jl.product.catalogue.presentation.vo.PricePVO;
 
-public class PriceComputor {
+public class PriceComputorUtils {
 
 	public static Double calculatePriceDrop(Double fromPrice, Double nowPrice) {
 		Double reducedPrice = 0.00;

@@ -1,9 +1,10 @@
-package com.jl.rest.product.service;
+package com.jl.rest.product.mapper;
 
 import com.jl.product.catalogue.presentation.vo.NowPricePVO;
 
 public class BaseMapper {
 
+	
 	public String processComplexTypeAttributes(String t) {
 		return (String) t;
 	}
@@ -12,23 +13,25 @@ public class BaseMapper {
 		return (Double) t;
 	}
 	
+	public Integer processComplexTypeAttributes(Integer t) {
+		return (Integer) t;
+	}
+
 	public NowPricePVO processComplexTypeAttributes(NowPricePVO t) {
 		return (NowPricePVO) t;
 	}
 
 	public Object processComplexTypeAttributes(Object t) {
-
 		if (t instanceof String) {
 			return processComplexTypeAttributes((String) t);
-		}
-		if (t instanceof Double) {
+		} else if (t instanceof Double) {
 			return processComplexTypeAttributes((Double) t);
-		}
-		// add any specific Objects of add them for typecasting
-		if (t instanceof NowPricePVO) {
+		} else if (t instanceof Integer) {
+			return processComplexTypeAttributes((NowPricePVO) t);
+		} else if (t instanceof NowPricePVO) {
 			return processComplexTypeAttributes((NowPricePVO) t);
 		}
-		return (Object) t;
+		return t;
 	}
 
 }
