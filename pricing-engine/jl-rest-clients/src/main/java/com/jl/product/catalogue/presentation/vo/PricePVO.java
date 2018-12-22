@@ -15,7 +15,7 @@ public class PricePVO implements Serializable {
 
 	private Double then2;
 
-	private Double now;
+	private Object now;
 
 	private String uom;
 
@@ -36,6 +36,7 @@ public class PricePVO implements Serializable {
 	}
 
 	public void setWas(Double was) {
+		//TODO hmmm revisit, do i really need this now ,since data mappers are introduced ?
 		if(was == null) {
 			this.was = 0.00;
 		}
@@ -64,14 +65,11 @@ public class PricePVO implements Serializable {
 		this.then2 = then2;
 	}
 
-	public Double getNow() {
+	public Object getNow() {
 		return now;
 	}
 
-	public void setNow(Double now) {
-		if(now == null) {
-			this.now = 0.00;
-		}
+	public void setNow(Object now) {
 		this.now = now;
 	}
 

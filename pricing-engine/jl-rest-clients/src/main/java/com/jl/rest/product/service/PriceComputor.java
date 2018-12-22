@@ -29,9 +29,9 @@ public class PriceComputor {
 		if (price.getThen2() < price.getThen1()) {
 			reducedPrice = price.getThen1() - price.getThen2();
 		}
-		if (price.getNow() > price.getThen2()) {
+		/*if (price.getNow() > price.getThen2()) {
 			reducedPrice = price.getNow() - price.getThen2() ;
-		}
+		}*/
 		
 		price.setReducedPrice(reducedPrice);
 		return true;
