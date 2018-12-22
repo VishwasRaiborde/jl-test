@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class EnvironmentConfigs {
-	
+	// TODO code clean up 
 
 	@Bean
 	public Map buildPropertiesOnload() {

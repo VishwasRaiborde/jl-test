@@ -38,7 +38,7 @@ public class ProductDataMapperServiceTest {
 
 	@Test
 	public void testProductProductLoad() throws NoDataFoundException, ClientCommunicationException {
-
+         // TODO code clean up 
 		EnvironmetProperties.clearAllConfigs();
 		EnvironmetProperties.addProperty(EnvironmetProperties.REST_URL_PRODUCTS_CATALOGUE,VALID_REST_URL_PRODUCTS_CATALOGUE);
 		RestResponse<ProductCatalogue> restResponse = productCatalogueClient.getProducts();

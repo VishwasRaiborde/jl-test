@@ -16,7 +16,7 @@ import com.jl.product.vo.json.ProductCatalogue;
 
 @Service
 public class ProductCatalogueClient {
-
+	// TODO code clean up 
 	@Autowired
 	RestTemplate restTemplate;
 	private static final Logger log = LoggerFactory.getLogger(ProductCatalogueClient.class);
