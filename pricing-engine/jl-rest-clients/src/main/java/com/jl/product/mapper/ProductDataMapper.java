@@ -13,7 +13,7 @@ import com.jl.product.vo.json.Price;
 import com.jl.product.vo.json.Product;
 
 @Service
-public class ProductDataMapperService extends BaseMapper {
+public class ProductDataMapper extends BaseMapper {
 
 	
 /*	public List<ProductPVO> getFilteredProducts(List<Product> products) {

@@ -16,7 +16,7 @@ import com.jl.configs.RestClientApp;
 import com.jl.product.clients.rest.ProductCatalogueClient;
 import com.jl.product.exception.ClientCommunicationException;
 import com.jl.product.exception.NoDataFoundException;
-import com.jl.product.mapper.ProductDataMapperService;
+import com.jl.product.mapper.ProductDataMapper;
 import com.jl.product.response.RestResponse;
 import com.jl.product.utils.PriceComputorUtils;
 import com.jl.product.vo.NowPriceVO;
@@ -34,7 +34,7 @@ public class ProductDataMapperServiceTest {
 	private ProductCatalogueClient productCatalogueClient;
 
 	@Autowired
-	ProductDataMapperService productDataMapperService;
+	ProductDataMapper productDataMapperService;
 
 	@Test
 	public void testProductProductLoad() throws NoDataFoundException, ClientCommunicationException {
