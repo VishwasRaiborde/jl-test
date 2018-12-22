@@ -12,17 +12,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.jl.configs.RestClientApp;
-import com.jl.product.catalogue.json.vo.Price;
-import com.jl.product.catalogue.json.vo.Product;
-import com.jl.product.catalogue.json.vo.ProductCatalogue;
-import com.jl.product.catalogue.presentation.vo.NowPricePVO;
-import com.jl.product.catalogue.presentation.vo.ProductPVO;
+import com.jl.product.clients.rest.ProductCatalogueClient;
+import com.jl.product.exception.ClientCommunicationException;
+import com.jl.product.exception.NoDataFoundException;
+import com.jl.product.json.Price;
+import com.jl.product.json.Product;
+import com.jl.product.json.ProductCatalogue;
+import com.jl.product.mapper.ProductDataMapperService;
 import com.jl.product.response.RestResponse;
+import com.jl.product.utils.PriceComputorUtils;
+import com.jl.product.vo.NowPriceVO;
+import com.jl.product.vo.ProductVO;
 import com.jl.property.EnvironmetProperties;
-import com.jl.rest.exception.ClientCommunicationException;
-import com.jl.rest.exception.NoDataFoundException;
-import com.jl.rest.product.mapper.ProductDataMapperService;
-import com.jl.rest.product.utils.PriceComputorUtils;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = RestClientApp.class)
@@ -43,8 +44,8 @@ public class ProductDataMapperServiceTest {
 		RestResponse<ProductCatalogue> restResponse = productCatalogueClient.getProducts();
 		assertTrue(restResponse.isSuccessfull());
 		
-		List<ProductPVO> productPVOs = productDataMapperService.copyFromJsonToVo(restResponse.getResponse().getProducts());
-		for (ProductPVO product : productPVOs) {
+		List<ProductVO> productPVOs = productDataMapperService.copyFromJsonToVo(restResponse.getResponse().getProducts());
+		for (ProductVO product : productPVOs) {
 			System.out.println(product.toString());
 		}
 
@@ -64,7 +65,7 @@ public class ProductDataMapperServiceTest {
 		Product productWithComplexPriceData  = new Product();
 		Price price2 = new Price();
 		price2.setCurrency("GBP");
-		NowPricePVO nowPricePVO = new NowPricePVO();
+		NowPriceVO nowPricePVO = new NowPriceVO();
 		nowPricePVO.setFrom(59.00);
 		nowPricePVO.setTo(68.00);
 		price2.setNow(nowPricePVO);
@@ -73,17 +74,17 @@ public class ProductDataMapperServiceTest {
 		productPVOs.add(productWithSimplePriceData);
 		productPVOs.add(productWithComplexPriceData);
 		
-		List<ProductPVO> products = productDataMapperService.copyFromJsonToVo(productPVOs);
-		List<ProductPVO> productsWithPriceREduction = new ArrayList<ProductPVO>();
+		List<ProductVO> products = productDataMapperService.copyFromJsonToVo(productPVOs);
+		List<ProductVO> productsWithPriceREduction = new ArrayList<ProductVO>();
 	
-		for (ProductPVO product : products) {
+		for (ProductVO product : products) {
 			System.out.println("Products " + product.toString());
 			boolean hasPriceReduced = PriceComputorUtils.calculatePriceDrop(product.getPrice());
 			if(hasPriceReduced) {
 				productsWithPriceREduction.add(product);
 			}
 		}
-		for (ProductPVO product : productsWithPriceREduction) {
+		for (ProductVO product : productsWithPriceREduction) {
 			System.out.println("Reduced Products" + product.toString());
 		}
 
@@ -95,12 +96,12 @@ public class ProductDataMapperServiceTest {
 		EnvironmetProperties.clearAllConfigs();
 		EnvironmetProperties.addProperty(EnvironmetProperties.REST_URL_PRODUCTS_CATALOGUE,VALID_REST_URL_PRODUCTS_CATALOGUE);
 		
-		List<ProductPVO> productsWithPriceREduction = new ArrayList<ProductPVO>();
+		List<ProductVO> productsWithPriceREduction = new ArrayList<ProductVO>();
 		
 		RestResponse<ProductCatalogue> restResponse = productCatalogueClient.getProducts();
-		List<ProductPVO> products = productDataMapperService.copyFromJsonToVo(restResponse.getResponse().getProducts());
+		List<ProductVO> products = productDataMapperService.copyFromJsonToVo(restResponse.getResponse().getProducts());
 		
-		for (ProductPVO product : products) {
+		for (ProductVO product : products) {
 			System.out.println("Products " + product.toString());
 			boolean hasPriceReduced = PriceComputorUtils.calculatePriceDrop(product.getPrice());
 			if(hasPriceReduced) {
@@ -108,7 +109,7 @@ public class ProductDataMapperServiceTest {
 			}
 		}
 		
-		for (ProductPVO product : productsWithPriceREduction) {
+		for (ProductVO product : productsWithPriceREduction) {
 			System.out.println("Reduced Products" + product.toString());
 		}
 

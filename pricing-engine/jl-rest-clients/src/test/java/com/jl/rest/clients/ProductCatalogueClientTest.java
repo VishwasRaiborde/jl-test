@@ -13,12 +13,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.jl.configs.RestClientApp;
-import com.jl.product.catalogue.json.vo.Product;
-import com.jl.product.catalogue.json.vo.ProductCatalogue;
+import com.jl.product.clients.rest.ProductCatalogueClient;
+import com.jl.product.exception.ClientCommunicationException;
+import com.jl.product.exception.NoDataFoundException;
+import com.jl.product.json.Product;
+import com.jl.product.json.ProductCatalogue;
 import com.jl.product.response.RestResponse;
 import com.jl.property.EnvironmetProperties;
-import com.jl.rest.exception.ClientCommunicationException;
-import com.jl.rest.exception.NoDataFoundException;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = RestClientApp.class)

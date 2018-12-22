@@ -5,6 +5,10 @@ import java.util.Map;
 
 public class EnvironmetProperties {
 	
+	private EnvironmetProperties() {
+		
+	}
+	
 	public static final String REST_URL_PRODUCTS_CATALOGUE = "rest.url";
 	
 	public static Map<String,String> propertMap= new HashMap<String,String>();
