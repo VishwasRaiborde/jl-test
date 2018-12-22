@@ -16,30 +16,6 @@ import com.jl.product.vo.json.Product;
 public class ProductDataMapper extends BaseMapper {
 
 	
-/*	public List<ProductPVO> getFilteredProducts(List<Product> products) {
-		List<ProductPVO> productPVOsList = new ArrayList<ProductPVO>();
-		ProductPVO productPVO;
-		PricePVO pricePVO;
-
-		for (Product product : products) {
-			Price price = product.getPrice();
-			productPVO = new ProductPVO();
-			pricePVO = new PricePVO();
-			productPVO.setPrice(pricePVO);
-
-			BeanUtils.copyProperties(product, productPVO);
-			copyPriceAttributes(price, pricePVO);
-
-			boolean hasPriceReduced = PriceComputor.calculatePriceDrop(productPVO.getPrice());
-			if (hasPriceReduced) {
-				productPVOsList.add(productPVO);
-			}
-		}
-
-		return productPVOsList;
-	}
-*/
-
 	public List<ProductVO> copyFromJsonToVo(List<Product> products) {
 		
 		List<ProductVO> productPVOsList = new ArrayList<ProductVO>();
@@ -47,13 +23,12 @@ public class ProductDataMapper extends BaseMapper {
 		PriceVO targetPricePVO;
 
 		for (Product sourceProduct : products) {
-			
 			Price sourcePrice = sourceProduct.getPrice();
 			targetProductPVO = new ProductVO();
 			targetPricePVO = new PriceVO();
 			targetProductPVO.setPrice(targetPricePVO);
-		   // only the bear minimum needed for presentation can be controller at mappers in this case only product and price are required
-		    copyProductAttributes(sourceProduct, targetProductPVO);
+	
+			copyProductAttributes(sourceProduct, targetProductPVO);
 			copyPriceAttributes(sourcePrice, targetPricePVO);
 			
 			productPVOsList.add(targetProductPVO);

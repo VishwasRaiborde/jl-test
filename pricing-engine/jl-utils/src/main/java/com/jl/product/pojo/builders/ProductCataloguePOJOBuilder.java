@@ -24,17 +24,7 @@ public class ProductCataloguePOJOBuilder {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
-		String packageName = "com.jl.product.catalogue.generated.vo";
-		File inputJson = new File("." + File.separator + "/jsonfeed/productCatalogueJSON.json");
-		File outputPojoDirectory = new File("." + File.separator + "src/main/java");
-		outputPojoDirectory.mkdirs();
-		try {
-			new ProductCataloguePOJOBuilder().convert2JSON(inputJson.toURI().toURL(), outputPojoDirectory, packageName,inputJson.getName().replace(".json", ""));
-		} catch (IOException e) {
-			//
-		}
-	}
+	
 
 	public void convert2JSON(URL inputJson, File outputPojoDirectory, String packageName, String className)
 			throws IOException {
@@ -52,5 +42,17 @@ public class ProductCataloguePOJOBuilder {
 		SchemaMapper mapper = new SchemaMapper(	new RuleFactory(config, new Jackson2Annotator(config), new SchemaStore()), new SchemaGenerator());
 		mapper.generate(codeModel, className, packageName, source);
 		codeModel.build(outputPojoDirectory);
+	}
+	
+	public static void main(String[] args) {
+		String packageName = "com.jl.product.catalogue.generated.vo";
+		File inputJson = new File("." + File.separator + "/jsonfeed/productCatalogueJSON.json");
+		File outputPojoDirectory = new File("." + File.separator + "src/main/java");
+		outputPojoDirectory.mkdirs();
+		try {
+			new ProductCataloguePOJOBuilder().convert2JSON(inputJson.toURI().toURL(), outputPojoDirectory, packageName,inputJson.getName().replace(".json", ""));
+		} catch (IOException e) {
+			//
+		}
 	}
 }
