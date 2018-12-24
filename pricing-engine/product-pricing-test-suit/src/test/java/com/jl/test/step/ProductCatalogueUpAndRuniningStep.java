@@ -51,8 +51,7 @@ public class ProductCatalogueUpAndRuniningStep {
 
 	@Then("a json array of product should be provided and confirm  end point are up and running")
 	public void thenAJsonArrayOfProductShouldBeProvidedAndConfirmEndPointAreUpAndRunning() {
-		RestResponse<ProductCatalogue> productCatalogue = (RestResponse<ProductCatalogue>) cachedMap
-				.get("productCatalogue");
+		RestResponse<ProductCatalogue> productCatalogue = (RestResponse<ProductCatalogue>) cachedMap.get("productCatalogue");
 		assertTrue(productCatalogue != null);
 	}
 
