@@ -6,6 +6,7 @@ import com.jl.product.vo.ProductVO;
 
 public interface IProductService {
 
-	public List<ProductVO> getProducedsWithPriceReduction() ;
+	public List<ProductVO> getProducts();
+	public List<ProductVO> getProducedsWithWithFilter() ;
 
 }

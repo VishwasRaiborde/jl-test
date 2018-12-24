@@ -17,20 +17,23 @@ import com.jl.product.vo.ProductVO;
 @RestController
 @RequestMapping("/api/v1/")
 public class ProductPriceController {
-	
+
 	@Autowired
 	IProductService productService;
 
-	@GetMapping(value="/products/{labelType}/prices",produces={MediaType.APPLICATION_JSON_VALUE})
-	public  ResponseEntity<List<ProductVO>> priceReducdedProducts(@PathVariable("labelType") String labelType) {
-		List<ProductVO>  response =  productService.getProducedsWithPriceReduction();
-		return new ResponseEntity<List<ProductVO>>(response,HttpStatus.OK);
+	@GetMapping(value = "/products/{labelType}/prices", produces = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<List<ProductVO>> priceReducdedProducts(@PathVariable("labelType") String labelType) {
+
+		List<ProductVO> response = productService.getProducedsWithWithFilter();
+		return new ResponseEntity<List<ProductVO>>(response, HttpStatus.OK);
+
 	}
-	
-	@GetMapping(value="/products/prices",produces={ MediaType.APPLICATION_JSON_VALUE})
-	public  ResponseEntity<List<ProductVO>> priceReducdedProducts1() {
-		List<ProductVO>  response =  productService.getProducedsWithPriceReduction();
-		return new ResponseEntity<List<ProductVO>>(response,HttpStatus.OK);
+
+	@GetMapping(value = "/products/prices", produces = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<List<ProductVO>> priceReducdedProducts1() {
+		List<ProductVO> response = productService.getProducts();
+		return new ResponseEntity<List<ProductVO>>(response, HttpStatus.OK);
+
 	}
 
 }
