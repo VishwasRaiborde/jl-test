@@ -19,9 +19,7 @@ public class PriceComputorUtils {
 
 	public static boolean calculatePriceDrop(PriceVO price) {
 		
-		
 		Double reducedPrice = 0.00;
-		
 	
 		if(price.getWas() == 0.0 && price.getThen2() == 0.0 && price.getThen1() ==0.0 && price.getNow() !=null) {
 			reducedPrice = 0.0;
@@ -34,7 +32,6 @@ public class PriceComputorUtils {
 			reducedPrice = price.getThen1() - price.getThen2();
 		}
 
-		
 		price.setReducedPrice(reducedPrice);
 		return true;
 	}
