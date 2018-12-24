@@ -63,10 +63,5 @@ public class ProductCatalogueClientTest {
 		assertNotNull(products);
 	}
 	
-	@Test
-	@Ignore
-	public void testProductProductDecoratioAndSorting() throws NoDataFoundException, ClientCommunicationException {
-		assertTrue(Boolean.FALSE); 
-	}
 
 }
