@@ -22,7 +22,7 @@ import com.jl.product.vo.json.ProductCatalogue;
 @Component
 public class ProductCatalogueUpAndRuniningStep {
 
-	static Map cachedMap = new HashMap<>();
+	static Map<Object, Object> cachedMap = new HashMap<>();
 
 	@Autowired
 	private ProductCatalogueClient productCatalogueClient;
