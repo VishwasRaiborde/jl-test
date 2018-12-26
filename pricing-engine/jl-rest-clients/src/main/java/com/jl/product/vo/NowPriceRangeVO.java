@@ -2,7 +2,7 @@ package com.jl.product.vo;
 
 import java.io.Serializable;
 
-public class NowPriceVO implements Serializable {
+public class NowPriceRangeVO implements Serializable {
 
 	/**
 	 * 
@@ -26,5 +26,12 @@ public class NowPriceVO implements Serializable {
 	public void setTo(Double to) {
 		this.to = to;
 	}
+
+	@Override
+	public String toString() {
+		return "NowPriceRangeVO [from=" + from + ", to=" + to + "]";
+	}
+	
+
 
 }

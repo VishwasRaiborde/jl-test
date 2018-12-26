@@ -32,14 +32,15 @@ public class ProductVO implements Serializable {
 	 * 
 	 */
 
-	private String productId;
+	private Integer productId;
 	private String title;
 	private String defaultSkuId;
+	private Double reducedPrice;
 	private String nowPrice;
-	private String priceLabel; // ShowWasNow,ShowWasThenNow,ShowPercDscount
 	
+	private String priceLabel; 
 	private List<ColorSwatchVO> colorSwatches = new ArrayList<ColorSwatchVO>();
-	private String reducedPrice;
+	
 	private PriceVO price;
 	
 
@@ -51,11 +52,11 @@ public class ProductVO implements Serializable {
 		this.defaultSkuId = defaultSkuId;
 	}
 
-	public String getProductId() {
+	public Integer getProductId() {
 		return productId;
 	}
 
-	public void setProductId(String productId) {
+	public void setProductId(Integer productId) {
 		this.productId = productId;
 	}
 
@@ -91,12 +92,12 @@ public class ProductVO implements Serializable {
 		this.priceLabel = priceLabel;
 	}
 
-	public String getReducedPrice() {
+	public Double getReducedPrice() {
 		return reducedPrice;
 	}
 
-	public void setReducedPrice(String reducedPrice) {
-		this.reducedPrice = reducedPrice;
+	public void setReducedPrice(Double reducedPrice2) {
+		this.reducedPrice = reducedPrice2;
 	}
 
 	public PriceVO getPrice() {
@@ -107,14 +108,18 @@ public class ProductVO implements Serializable {
 		this.price = price;
 	}
 
+
+
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((productId == null) ? 0 : productId.hashCode());
+		result = prime * result + ((reducedPrice == null) ? 0 : reducedPrice.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -130,15 +135,21 @@ public class ProductVO implements Serializable {
 				return false;
 		} else if (!productId.equals(other.productId))
 			return false;
+		if (reducedPrice == null) {
+			if (other.reducedPrice != null)
+				return false;
+		} else if (!reducedPrice.equals(other.reducedPrice))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "ProductPVO [productId=" + productId + ", title=" + title + ", defaultSkuId=" + defaultSkuId
-				+ ", nowPrice=" + nowPrice + ", priceLabel=" + priceLabel + ", colorSwatches=" + colorSwatches
-				+ ", reducedPrice=" + reducedPrice + ", price=" + price + "]";
+		return "ProductVO [productId=" + productId + ", title=" + title + ", defaultSkuId=" + defaultSkuId
+				+ ", reducedPrice=" + reducedPrice + ", nowPrice=" + nowPrice + ", priceLabel=" + priceLabel
+				+ ", colorSwatches=" + colorSwatches + ", price=" + price + "]";
 	}
+
 
 	
 

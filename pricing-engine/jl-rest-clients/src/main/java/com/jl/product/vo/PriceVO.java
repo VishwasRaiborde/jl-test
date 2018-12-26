@@ -23,6 +23,10 @@ public class PriceVO implements Serializable {
 
 	private Double reducedPrice;
 
+	
+
+
+
 	public Double getWas() {
 		return was;
 	}
@@ -56,6 +60,7 @@ public class PriceVO implements Serializable {
 
 	public void setNow(Object now) {
 		this.now = now;
+
 	}
 
 	public String getUom() {
@@ -84,8 +89,9 @@ public class PriceVO implements Serializable {
 
 	@Override
 	public String toString() {
-		return "PricePVO [was=" + was + ", then1=" + then1 + ", then2=" + then2 + ", now=" + now + ", uom=" + uom
-				+ ", currency=" + currency + "]";
+		return "PriceVO [was=" + was + ", then1=" + then1 + ", then2=" + then2 + ", now=" + now + ", uom=" + uom
+				+ ", currency=" + currency + ", reducedPrice=" + reducedPrice +  "]";
 	}
 
+	
 }

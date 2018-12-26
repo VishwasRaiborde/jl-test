@@ -7,9 +7,11 @@ import org.springframework.stereotype.Service;
 
 import com.jl.product.clients.rest.ProductCatalogueClient;
 import com.jl.product.exception.ClientCommunicationException;
+import com.jl.product.exception.NoAppropraiteDataFilterProvidedException;
 import com.jl.product.exception.NoDataFoundException;
 import com.jl.product.filer.ProductDataFilter;
 import com.jl.product.filer.ProductDataFilter.PriceLableType;
+import com.jl.product.filer.ProductDataFilter.ProductSortBy;
 import com.jl.product.filer.ProductDataFilterService;
 import com.jl.product.mapper.ProductDataMapper;
 import com.jl.product.response.RestResponse;
@@ -49,7 +51,7 @@ public class ProductService implements IProductService {
 			RestResponse<ProductCatalogue> restResponse = productCatalogueClient.getProducts();
 			List<ProductVO> productPVOs = productDataMapperService.process(restResponse.getResponse().getProducts());
 			// now populate this filter from the ui perspective and massage the data here
-			ProductDataFilter filter = new ProductDataFilter(productPVOs, PriceLableType.ShowWasThenNow);
+			ProductDataFilter filter = new ProductDataFilter(productPVOs, PriceLableType.SHOW_WAS_THEN_NOW,ProductSortBy.PRODUCT_PRICE_REDUCTION_DESC);
 			return productDataFilterService.getProcductAfterFilter(filter);
 
 		} catch (NoDataFoundException e) {
@@ -57,6 +59,9 @@ public class ProductService implements IProductService {
 			e.printStackTrace();
 		} catch (ClientCommunicationException e) {
 			
+			e.printStackTrace();
+		} catch (NoAppropraiteDataFilterProvidedException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;

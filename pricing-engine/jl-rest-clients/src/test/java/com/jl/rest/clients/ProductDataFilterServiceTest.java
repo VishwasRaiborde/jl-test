@@ -15,9 +15,11 @@ import com.jl.configs.EnvironmetProperties;
 import com.jl.configs.RestClientApp;
 import com.jl.product.clients.rest.ProductCatalogueClient;
 import com.jl.product.exception.ClientCommunicationException;
+import com.jl.product.exception.NoAppropraiteDataFilterProvidedException;
 import com.jl.product.exception.NoDataFoundException;
 import com.jl.product.filer.ProductDataFilter;
 import com.jl.product.filer.ProductDataFilter.PriceLableType;
+import com.jl.product.filer.ProductDataFilter.ProductSortBy;
 import com.jl.product.filer.ProductDataFilterService;
 import com.jl.product.mapper.ProductDataMapper;
 import com.jl.product.response.RestResponse;
@@ -47,14 +49,28 @@ public class ProductDataFilterServiceTest {
 				VALID_REST_URL_PRODUCTS_CATALOGUE);
 	}
 
+	@Test(expected=NoAppropraiteDataFilterProvidedException.class)
+	public void testProductProductwithOutFilterLoad() throws NoDataFoundException, ClientCommunicationException, NoAppropraiteDataFilterProvidedException {
+		
+		RestResponse<ProductCatalogue> restResponse = productCatalogueClient.getProducts();
+		assertTrue(restResponse.isSuccessfull());
+		List<ProductVO> productPVOs = productDataMapperService.process(restResponse.getResponse().getProducts());
+		List<ProductVO> vos = productDataFilterService.getProcductAfterFilter(null);
+		
+		for(ProductVO productVO :vos) {
+			System.out.println(productVO.getPrice().toString());
+		}
+		
+	}
+	
 	@Test
-	public void testProductProductLoadFail() throws NoDataFoundException, ClientCommunicationException {
+	public void testProductProductwithFilterLoad() throws NoDataFoundException, ClientCommunicationException, NoAppropraiteDataFilterProvidedException {
 		
 		RestResponse<ProductCatalogue> restResponse = productCatalogueClient.getProducts();
 		assertTrue(restResponse.isSuccessfull());
 		List<ProductVO> productPVOs = productDataMapperService.process(restResponse.getResponse().getProducts());
 		
-		ProductDataFilter filter = new ProductDataFilter(productPVOs,PriceLableType.ShowWasThenNow);
+		ProductDataFilter filter = new ProductDataFilter(productPVOs,PriceLableType.SHOW_WAS_THEN_NOW,ProductSortBy.PRODUCT_PRICE_REDUCTION_DESC);
 		List<ProductVO> vos = productDataFilterService.getProcductAfterFilter(filter);
 		
 		for(ProductVO productVO :vos) {

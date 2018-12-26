@@ -2,13 +2,13 @@ package com.jl.product.mapper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import com.jl.product.vo.ColorSwatchVO;
-import com.jl.product.vo.NowPriceVO;
 import com.jl.product.vo.PriceVO;
 import com.jl.product.vo.ProductVO;
 import com.jl.product.vo.json.ColorSwatch;
@@ -25,7 +25,7 @@ public class ProductDataMapper extends BaseMapper {
 
 			ProductVO targetProductVO = copyProductAttributes(sourceProduct);
 			targetProductVO.setPrice(copyPriceAttributes(sourceProduct.getPrice()));
-			targetProductVO.setColorSwatches(copyColorSwatchAttributes(sourceProduct.getColorSwatches()));
+			//targetProductVO.setColorSwatches(copyColorSwatchAttributes(sourceProduct.getColorSwatches()));
 			productPVOsList.add(targetProductVO);
 		}
 
@@ -34,7 +34,7 @@ public class ProductDataMapper extends BaseMapper {
 
 	public ProductVO copyProductAttributes(Product sourceProduct) {
 		ProductVO targetProductPVO = new ProductVO();
-		targetProductPVO.setProductId(sourceProduct.getProductId());
+		targetProductPVO.setProductId(Integer.parseInt(sourceProduct.getProductId()));
 		targetProductPVO.setTitle(sourceProduct.getTitle());
 		return targetProductPVO;
 	}
@@ -66,9 +66,9 @@ public class ProductDataMapper extends BaseMapper {
 		} else if (t instanceof Double) {
 			return processComplexType((Double) t);
 		} else if (t instanceof Integer) {
-			return processComplexType((NowPriceVO) t);
-		} else if (t instanceof NowPriceVO) {
-			return processComplexType((NowPriceVO) t);
+			return processComplexType((Integer) t);
+		} else if (t instanceof Map) {
+			return processComplexType((Map)t);
 		}
 		return t;
 	}

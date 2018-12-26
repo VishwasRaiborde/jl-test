@@ -20,7 +20,7 @@ import com.jl.product.exception.NoDataFoundException;
 import com.jl.product.mapper.ProductDataMapper;
 import com.jl.product.response.RestResponse;
 import com.jl.product.utils.PriceComputorUtils;
-import com.jl.product.vo.NowPriceVO;
+import com.jl.product.vo.NowPriceRangeVO;
 import com.jl.product.vo.ProductVO;
 import com.jl.product.vo.json.Price;
 import com.jl.product.vo.json.Product;
@@ -68,7 +68,7 @@ public class ProductDataMapperServiceTest {
 		Product productWithComplexPriceData = new Product();
 		Price price2 = new Price();
 		price2.setCurrency("GBP");
-		NowPriceVO nowPricePVO = new NowPriceVO();
+		NowPriceRangeVO nowPricePVO = new NowPriceRangeVO();
 		nowPricePVO.setFrom(59.00);
 		nowPricePVO.setTo(68.00);
 		price2.setNow(nowPricePVO);

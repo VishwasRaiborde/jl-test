@@ -1,24 +1,35 @@
 package com.jl.product.filer;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
-import com.jl.product.utils.PriceComputorUtils;
+import com.jl.product.vo.NowPriceRangeVO;
+import com.jl.product.vo.PriceVO;
 import com.jl.product.vo.ProductVO;
 
 public class ProductDataFilter extends DataFilter<ProductVO> {
 
 	public enum PriceLableType {
-		ShowWasNow, ShowWasThenNow, ShowPercDscount
+		SHOW_WAS_NOW, SHOW_WAS_THEN_NOW, SHOW_PER_DISCOUNT
+	}
+
+	public enum ProductSortBy {
+		PRODUCT_ID_ASC, PRODUCT_PRICE_REDUCTION_DESC, PRODUCT_PRICE_REDUCTION_ASC
 	}
 
 	PriceLableType labelType;
-
+	ProductSortBy productSortBy;
 	List<ProductVO> productVOs;
 
-	public ProductDataFilter(List<ProductVO> productVOs, PriceLableType labelType) {
+	public ProductDataFilter(List<ProductVO> productVOs, PriceLableType labelType, ProductSortBy productSortBy) {
 		this.productVOs = productVOs;
 		this.labelType = labelType;
+		this.productSortBy = productSortBy;
+	}
+
+	public ProductDataFilter() {
 	}
 
 	public Object filter() {
@@ -27,7 +38,7 @@ public class ProductDataFilter extends DataFilter<ProductVO> {
 
 		for (ProductVO productVO : productVOs) {
 
-			boolean hasPriceReduced = PriceComputorUtils.calculatePriceDrop(productVO.getPrice());
+			boolean hasPriceReduced = wasHistoricPriceHigherThanPresent(productVO);
 			if (hasPriceReduced) {
 
 				Double wasPrice = productVO.getPrice().getWas();
@@ -37,7 +48,7 @@ public class ProductDataFilter extends DataFilter<ProductVO> {
 				String priceLabel = productVO.getPrice().getCurrency();
 
 				switch (labelType) {
-				case ShowWasNow: {
+				case SHOW_WAS_NOW: {
 
 					StringBuilder showWasNow = new StringBuilder();
 					showWasNow.append(" {");
@@ -54,7 +65,7 @@ public class ProductDataFilter extends DataFilter<ProductVO> {
 					break;
 
 				}
-				case ShowWasThenNow: {
+				case SHOW_WAS_THEN_NOW: {
 
 					StringBuilder showWasThenNow = new StringBuilder();
 
@@ -84,8 +95,8 @@ public class ProductDataFilter extends DataFilter<ProductVO> {
 					filteredListByCondition.add(productVO);
 					break;
 				}
-				case ShowPercDscount: {
-					filteredListByCondition.add(productVO);
+				case SHOW_PER_DISCOUNT: {
+					// filteredListByCondition.add(productVO);
 					break;
 				}
 				}
@@ -93,8 +104,87 @@ public class ProductDataFilter extends DataFilter<ProductVO> {
 			}
 
 		}
+		doSorting(filteredListByCondition);
 		return filteredListByCondition;
 
+	}
+
+	private void doSorting(List<ProductVO> filteredListByCondition) {
+
+		switch (productSortBy) {
+		case PRODUCT_ID_ASC: {
+			Collections.sort(filteredListByCondition, new ProductComparator());
+		}
+
+		case PRODUCT_PRICE_REDUCTION_DESC: {
+			Collections.sort(filteredListByCondition, new ProductSPriceComparator());
+		}
+
+		}
+	}
+
+	class ProductComparator implements Comparator<ProductVO> {
+		public int compare(ProductVO o1, ProductVO o2) {
+
+			if ((o1.getProductId()) == (o2.getProductId())) {
+				return 0;
+			} else if ((o1.getProductId()) < (o2.getProductId())) {
+				return 1;
+			} else {
+				return -1;
+			}
+		}
+	}
+
+	class ProductSPriceComparator implements Comparator<ProductVO> {
+		public int compare(ProductVO o1, ProductVO o2) {
+
+			if ((o1.getReducedPrice()) == (o2.getReducedPrice())) {
+				return 0;
+			} else if ((o1.getReducedPrice()) < (o2.getReducedPrice())) {
+				return 1;
+			} else {
+				return -1;
+			}
+		}
+	}
+	
+
+	public static boolean wasHistoricPriceHigherThanPresent(ProductVO product) {
+		PriceVO price = product.getPrice();
+		Double reducedPrice = 0.00;
+
+		boolean hasPriceReduction = false;
+
+		if (price.getWas() == 0.0 && price.getThen2() == 0.0 && price.getThen1() == 0.0 && price.getNow() != null) {
+			reducedPrice = 0.00;
+			product.setReducedPrice(reducedPrice);
+			return false;
+			
+		} else if (price.getThen2() < price.getThen1()) {
+			reducedPrice = price.getThen1() - price.getThen2();
+			price.setReducedPrice(reducedPrice);
+			product.setReducedPrice(reducedPrice);
+			hasPriceReduction = true;
+
+		} else if (price.getNow() instanceof NowPriceRangeVO) {
+			double toPrice = ((NowPriceRangeVO) price.getNow()).getTo();
+			double wasPrice = price.getWas();
+			reducedPrice = wasPrice - toPrice;
+			price.setReducedPrice(reducedPrice);
+			product.setReducedPrice(reducedPrice);
+			hasPriceReduction = true;
+
+		} else {
+			double toPrice = Double.parseDouble(price.getNow().toString());
+			double wasPrice = price.getWas();
+			reducedPrice = wasPrice - toPrice;
+			price.setReducedPrice(reducedPrice);
+			product.setReducedPrice(reducedPrice);
+			hasPriceReduction = true;
+
+		}
+		return hasPriceReduction;
 	}
 
 }

@@ -1,6 +1,8 @@
 package com.jl.product.mapper;
 
-import com.jl.product.vo.NowPriceVO;
+import java.util.Map;
+
+import com.jl.product.vo.NowPriceRangeVO;
 
 public abstract class BaseMapper {
 
@@ -17,8 +19,11 @@ public abstract class BaseMapper {
 		return t;
 	}
 
-	public NowPriceVO processComplexType(NowPriceVO t) {
-		return t;
+	public NowPriceRangeVO processComplexType(Map t) {
+		NowPriceRangeVO nowPrice = new NowPriceRangeVO();
+		nowPrice.setFrom((Double.parseDouble(t.get("from").toString())));
+		nowPrice.setTo(Double.parseDouble(t.get("to").toString()));
+		return nowPrice;
 	}
 	
 	
