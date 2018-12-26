@@ -25,7 +25,7 @@ public class ProductDataMapper extends BaseMapper {
 
 			ProductVO targetProductVO = copyProductAttributes(sourceProduct);
 			targetProductVO.setPrice(copyPriceAttributes(sourceProduct.getPrice()));
-			//targetProductVO.setColorSwatches(copyColorSwatchAttributes(sourceProduct.getColorSwatches()));
+			targetProductVO.setColorSwatches(copyColorSwatchAttributes(sourceProduct.getColorSwatches()));
 			productPVOsList.add(targetProductVO);
 		}
 

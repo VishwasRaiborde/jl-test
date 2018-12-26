@@ -41,68 +41,20 @@ public class ProductDataFilter extends DataFilter<ProductVO> {
 			boolean hasPriceReduced = wasHistoricPriceHigherThanPresent(productVO);
 			if (hasPriceReduced) {
 
-				Double wasPrice = productVO.getPrice().getWas();
-				Double then1Price = productVO.getPrice().getThen1();
-				Double then2Price = productVO.getPrice().getThen2();
-				Object nowPrice = productVO.getPrice().getNow();
-				String priceLabel = productVO.getPrice().getCurrency();
-
 				switch (labelType) {
 				case SHOW_WAS_NOW: {
-
-					StringBuilder showWasNow = new StringBuilder();
-					showWasNow.append(" {");
-					showWasNow.append("was=");
-					showWasNow.append(wasPrice);
-					showWasNow.append(priceLabel != null ? priceLabel : "");
-					showWasNow.append(", ");
-					showWasNow.append("now=");
-					showWasNow.append(nowPrice);
-					showWasNow.append("}");
-
-					productVO.setNowPrice(showWasNow.toString());
-					filteredListByCondition.add(productVO);
+					decorateProductForPriceWithWasAndNowAttribute(filteredListByCondition, productVO);
 					break;
-
 				}
 				case SHOW_WAS_THEN_NOW: {
-
-					StringBuilder showWasThenNow = new StringBuilder();
-
-					showWasThenNow.append("{");
-					showWasThenNow.append("was=");
-					showWasThenNow.append(wasPrice);
-					showWasThenNow.append(priceLabel != null ? priceLabel : "");
-					showWasThenNow.append(",");
-
-					showWasThenNow.append("then1=");
-					showWasThenNow.append(then1Price);
-					showWasThenNow.append(priceLabel != null ? priceLabel : "");
-					showWasThenNow.append(",");
-
-					showWasThenNow.append("then2=");
-					showWasThenNow.append(then2Price);
-					showWasThenNow.append(priceLabel != null ? priceLabel : "");
-					showWasThenNow.append(",");
-
-					showWasThenNow.append("now=");
-					showWasThenNow.append(nowPrice);
-					showWasThenNow.append(priceLabel != null ? priceLabel : "");
-
-					showWasThenNow.append("}");
-
-					productVO.setNowPrice(showWasThenNow.toString());
-					filteredListByCondition.add(productVO);
+					decorateProductForPriceWitWasThenAndNowAttribute(filteredListByCondition, productVO);
 					break;
 				}
 				case SHOW_PER_DISCOUNT: {
-					// filteredListByCondition.add(productVO);
 					break;
 				}
 				}
-
 			}
-
 		}
 		doSorting(filteredListByCondition);
 		return filteredListByCondition;
@@ -114,12 +66,16 @@ public class ProductDataFilter extends DataFilter<ProductVO> {
 		switch (productSortBy) {
 		case PRODUCT_ID_ASC: {
 			Collections.sort(filteredListByCondition, new ProductComparator());
+			break;
 		}
 
 		case PRODUCT_PRICE_REDUCTION_DESC: {
 			Collections.sort(filteredListByCondition, new ProductSPriceComparator());
+			break;
 		}
-
+		default: {
+			Collections.sort(filteredListByCondition, new ProductComparator());
+		}
 		}
 	}
 
@@ -150,7 +106,73 @@ public class ProductDataFilter extends DataFilter<ProductVO> {
 	}
 	
 
-	public static boolean wasHistoricPriceHigherThanPresent(ProductVO product) {
+	private void decorateProductForPriceWithWasAndNowAttribute(List<ProductVO> filteredListByCondition, ProductVO productVO) {
+		
+		Double wasPrice = productVO.getPrice().getWas();
+		Double then1Price = productVO.getPrice().getThen1();
+		Double then2Price = productVO.getPrice().getThen2();
+		Object nowPrice = productVO.getPrice().getNow();
+		String priceLabel = productVO.getPrice().getCurrency();
+		
+		StringBuilder showWasNow = new StringBuilder();
+		showWasNow.append(" {");
+		showWasNow.append("was=");
+		showWasNow.append(wasPrice);
+		showWasNow.append(priceLabel != null ? priceLabel : "");
+		showWasNow.append(", ");
+		showWasNow.append("now=");
+		showWasNow.append(nowPrice);
+		showWasNow.append("}");
+
+		productVO.setNowPrice(showWasNow.toString());
+		filteredListByCondition.add(productVO);
+	}
+
+	private void decorateProductForPriceWitWasThenAndNowAttribute(List<ProductVO> filteredListByCondition, ProductVO productVO) {
+		
+		Double wasPrice = productVO.getPrice().getWas();
+		Double then1Price = productVO.getPrice().getThen1();
+		Double then2Price = productVO.getPrice().getThen2();
+		Object nowPrice = productVO.getPrice().getNow();
+		String priceLabel = productVO.getPrice().getCurrency();
+		
+		StringBuilder showWasThenNow = new StringBuilder();
+
+		showWasThenNow.append("{");
+		showWasThenNow.append("was=");
+		showWasThenNow.append(wasPrice);
+		showWasThenNow.append(priceLabel != null ? priceLabel : "");
+		showWasThenNow.append(",");
+
+		showWasThenNow.append("then1=");
+		showWasThenNow.append(then1Price);
+		showWasThenNow.append(priceLabel != null ? priceLabel : "");
+		showWasThenNow.append(",");
+
+		showWasThenNow.append("then2=");
+		showWasThenNow.append(then2Price);
+		showWasThenNow.append(priceLabel != null ? priceLabel : "");
+		showWasThenNow.append(",");
+
+		showWasThenNow.append("now=");
+		showWasThenNow.append(nowPrice);
+		showWasThenNow.append(priceLabel != null ? priceLabel : "");
+
+		showWasThenNow.append("}");
+
+		productVO.setNowPrice(showWasThenNow.toString());
+		filteredListByCondition.add(productVO);
+	}
+
+	private void SHOW_PER_DISCOUNT(List<ProductVO> filteredListByCondition, ProductVO productVO) {
+		Double wasPrice = productVO.getPrice().getWas();
+		Double then1Price = productVO.getPrice().getThen1();
+		Double then2Price = productVO.getPrice().getThen2();
+		Object nowPrice = productVO.getPrice().getNow();
+		String priceLabel = productVO.getPrice().getCurrency();
+	}
+
+	private  boolean wasHistoricPriceHigherThanPresent(ProductVO product) {
 		PriceVO price = product.getPrice();
 		Double reducedPrice = 0.00;
 
@@ -186,5 +208,7 @@ public class ProductDataFilter extends DataFilter<ProductVO> {
 		}
 		return hasPriceReduction;
 	}
+	
+	
 
 }

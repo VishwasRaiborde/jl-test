@@ -4,9 +4,9 @@ import com.jl.product.vo.NowPriceRangeVO;
 import com.jl.product.vo.PriceVO;
 
 public class PriceComputorUtils {
-	
-	private PriceComputorUtils(){
-		
+
+	private PriceComputorUtils() {
+
 	}
 
 	public static Double calculatePriceDrop(Double fromPrice, Double nowPrice) {
@@ -19,10 +19,10 @@ public class PriceComputorUtils {
 	}
 
 	public static boolean calculatePriceDrop(PriceVO price) {
-		/*
+
 		Double reducedPrice = 0.00;
-	
-		if(price.getWas() == 0.0 && price.getThen2() == 0.0 && price.getThen1() == 0.0 && price.getNow() !=null) {
+
+		if (price.getWas() == 0.0 && price.getThen2() == 0.0 && price.getThen1() == 0.0 && price.getNow() != null) {
 			reducedPrice = 0.0;
 			return false;
 		}
@@ -34,38 +34,37 @@ public class PriceComputorUtils {
 		}
 
 		price.setReducedPrice(reducedPrice);
-		return true;*/
-		return wasHistoricPriceHigherThanPresent(price);
+		return true;
+
 	}
-	
-	
+
 	public static boolean wasHistoricPriceHigherThanPresent(PriceVO price) {
-		
+
 		Double reducedPrice = 0.00;
-		
-		if(price.getWas() == 0.0 && price.getThen2() == 0.0 && price.getThen1() == 0.0 && price.getNow() !=null) {
+
+		if (price.getWas() == 0.0 && price.getThen2() == 0.0 && price.getThen1() == 0.0 && price.getNow() != null) {
 			reducedPrice = 0.0;
 			return false;
-		}if (price.getThen2() < price.getThen1()) {
+		}
+		if (price.getThen2() < price.getThen1()) {
 			reducedPrice = price.getThen1() - price.getThen2();
 			return true;
 		}
-		
+
 		if (price.getNow() instanceof NowPriceRangeVO) {
-			double toPrice = ((NowPriceRangeVO)price.getNow()).getTo();
+			double toPrice = ((NowPriceRangeVO) price.getNow()).getTo();
 			double wasPrice = price.getWas();
 			price.setReducedPrice(wasPrice - toPrice);
 			return true;
-		}else {
+		} else {
 			double toPrice = Double.parseDouble(price.getNow().toString());
 			double wasPrice = price.getWas();
 			price.setReducedPrice(wasPrice - toPrice);
 			return true;
 		}
-		
 
 	}
-	
+
 	public static double getReducedPrice(PriceVO price) {
 
 		Double reducedPrice = 0.00;
