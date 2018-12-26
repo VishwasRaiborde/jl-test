@@ -25,6 +25,6 @@
 	</dependencies>
 
 
-<!-- maven parent and spring parent clash should i or should i not , hmm out of scope though -->
+<!-- maven parent and spring parent clash should i or should i not , hmm out of scope though -->  
 
 </project>
