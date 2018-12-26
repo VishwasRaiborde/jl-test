@@ -123,9 +123,8 @@ public class ProductDataFilter extends DataFilter<ProductVO> {
 	private void decorateProductForPriceWithWasAndNowAttribute(List<ProductVO> filteredListByCondition,
 			ProductVO productVO) {
 
+		// some smart way for null check , null check before use , 
 		Double wasPrice = productVO.getPrice().getWas();
-		Double then1Price = productVO.getPrice().getThen1();
-		Double then2Price = productVO.getPrice().getThen2();
 		Object nowPrice = productVO.getPrice().getNow();
 		String priceLabel = productVO.getPrice().getCurrency();
 
@@ -180,17 +179,17 @@ public class ProductDataFilter extends DataFilter<ProductVO> {
 		filteredListByCondition.add(productVO);
 	}
 
-	private void SHOW_PER_DISCOUNT(List<ProductVO> filteredListByCondition, ProductVO productVO) {
+/*	private void SHOW_PER_DISCOUNT(List<ProductVO> filteredListByCondition, ProductVO productVO) {
 		Double wasPrice = productVO.getPrice().getWas();
 		Double then1Price = productVO.getPrice().getThen1();
 		Double then2Price = productVO.getPrice().getThen2();
 		Object nowPrice = productVO.getPrice().getNow();
 		String priceLabel = productVO.getPrice().getCurrency();
-	}
+	}*/
 
 	private boolean wasHistoricPriceHigherThanPresent(ProductVO product) {
 		PriceVO price = product.getPrice();
-		Double reducedPrice = 0.00;
+		Double reducedPrice ;
 
 		boolean hasPriceReduction = false;
 

@@ -37,7 +37,7 @@ public class ProductCatalogueClient {
 				restResponse.setAsSuccessfull(Boolean.TRUE);
 				restResponse.setResponseCode(ClientResponseStatus.SUCESSFULL);
 				if (log.isDebugEnabled()) {
-					log.debug("received response from provider " ,restResponse);
+					log.debug("received response from provider {0}" ,restResponse);
 				}
 				return restResponse;
 			} else {

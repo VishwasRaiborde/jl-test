@@ -21,8 +21,8 @@ public abstract class BaseMapper {
 
 	public NowPriceRangeVO processComplexType(Map<String, String> t) {
 		NowPriceRangeVO nowPrice = new NowPriceRangeVO();
-		nowPrice.setFrom((Double.parseDouble(t.get("from").toString())));
-		nowPrice.setTo(Double.parseDouble(t.get("to").toString()));
+		nowPrice.setFrom((Double.parseDouble(t.get("from"))));
+		nowPrice.setTo(Double.parseDouble(t.get("to")));
 		return nowPrice;
 	}
 	
