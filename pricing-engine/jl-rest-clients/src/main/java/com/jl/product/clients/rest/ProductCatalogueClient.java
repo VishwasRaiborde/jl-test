@@ -16,7 +16,7 @@ import com.jl.product.vo.json.ProductCatalogue;
 
 @Service
 public class ProductCatalogueClient {
-	// TODO code clean up 
+
 	@Autowired
 	RestTemplate restTemplate;
 	private static final Logger log = LoggerFactory.getLogger(ProductCatalogueClient.class);
@@ -32,32 +32,32 @@ public class ProductCatalogueClient {
 		try {
 			productCatalogueAsResponse = restTemplate.getForObject(EnvironmetProperties.getProperty(EnvironmetProperties.REST_URL_PRODUCTS_CATALOGUE),	ProductCatalogue.class);
 			if (productCatalogueAsResponse != null) {
-				if (log.isDebugEnabled()) {
-					log.debug(productCatalogueAsResponse.toString());
-				}
+				
 				restResponse.setResponse(productCatalogueAsResponse);
 				restResponse.setAsSuccessfull(Boolean.TRUE);
 				restResponse.setResponseCode(ClientResponseStatus.SUCESSFULL);
+				if (log.isDebugEnabled()) {
+					log.debug("received response from provider " ,restResponse);
+				}
 				return restResponse;
 			} else {
-				if (log.isDebugEnabled()) {
-					log.debug("No Data Received from Provided!");
-				}
+				
 				restResponse.setResponse(null);
 				restResponse.setAsSuccessfull(Boolean.FALSE);
 				restResponse.setResponseCode(ClientResponseStatus.SUCESSFULL);
+				if (log.isDebugEnabled()) {
+					log.debug("No Data Received from Provided!",restResponse);
+				}
 				throw new NoDataFoundException();
 			}
 
 		} catch (HttpClientErrorException e) {
-
-			if (log.isDebugEnabled()) {
-				log.debug("No Data Received from Provided, Potential Authorization Error Rest Url issue");
-			}
-
 			restResponse.setResponse(null);
 			restResponse.setAsSuccessfull(Boolean.FALSE);
 			restResponse.setResponseCode(ClientResponseStatus.COMMS_ERROS);
+			if (log.isDebugEnabled()) {
+				log.debug("No Data Received from Provided, Potential Authorization Error Rest Url issue" ,restResponse);
+			}
 			throw new ClientCommunicationException();
 		}
 

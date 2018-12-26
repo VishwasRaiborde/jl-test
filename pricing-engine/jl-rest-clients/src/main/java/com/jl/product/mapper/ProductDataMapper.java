@@ -36,6 +36,7 @@ public class ProductDataMapper extends BaseMapper {
 		ProductVO targetProductPVO = new ProductVO();
 		targetProductPVO.setProductId(Integer.parseInt(sourceProduct.getProductId()));
 		targetProductPVO.setTitle(sourceProduct.getTitle());
+		targetProductPVO.setDefaultSkuId(sourceProduct.getDefaultSkuId());
 		return targetProductPVO;
 	}
 
@@ -68,7 +69,7 @@ public class ProductDataMapper extends BaseMapper {
 		} else if (t instanceof Integer) {
 			return processComplexType((Integer) t);
 		} else if (t instanceof Map) {
-			return processComplexType((Map)t);
+			return processComplexType((Map<String, String>)t);
 		}
 		return t;
 	}

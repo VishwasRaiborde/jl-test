@@ -19,7 +19,6 @@ import com.jl.product.exception.ClientCommunicationException;
 import com.jl.product.exception.NoDataFoundException;
 import com.jl.product.mapper.ProductDataMapper;
 import com.jl.product.response.RestResponse;
-import com.jl.product.utils.PriceComputorUtils;
 import com.jl.product.vo.NowPriceRangeVO;
 import com.jl.product.vo.ProductVO;
 import com.jl.product.vo.json.Price;
@@ -40,7 +39,8 @@ public class ProductDataMapperServiceTest {
 	@Before
 	public void before() {
 		EnvironmetProperties.clearAllConfigs();
-		EnvironmetProperties.addProperty(EnvironmetProperties.REST_URL_PRODUCTS_CATALOGUE,VALID_REST_URL_PRODUCTS_CATALOGUE);
+		EnvironmetProperties.addProperty(EnvironmetProperties.REST_URL_PRODUCTS_CATALOGUE,
+				VALID_REST_URL_PRODUCTS_CATALOGUE);
 	}
 
 	@Test
@@ -48,9 +48,9 @@ public class ProductDataMapperServiceTest {
 		RestResponse<ProductCatalogue> restResponse = productCatalogueClient.getProducts();
 		assertTrue(restResponse.isSuccessfull());
 		List<ProductVO> productPVOs = productDataMapperService.process(restResponse.getResponse().getProducts());
-		for (ProductVO product : productPVOs) {
+		/*for (ProductVO product : productPVOs) {
 			System.out.println(product.toString());
-		}
+		}*/
 
 	}
 
@@ -78,18 +78,9 @@ public class ProductDataMapperServiceTest {
 		productPVOs.add(productWithComplexPriceData);
 
 		List<ProductVO> products = productDataMapperService.process(productPVOs);
-		List<ProductVO> productsWithPriceREduction = new ArrayList<ProductVO>();
-
-		for (ProductVO product : products) {
-			System.out.println("Products " + product.toString());
-			boolean hasPriceReduced = PriceComputorUtils.calculatePriceDrop(product.getPrice());
-			if (hasPriceReduced) {
-				productsWithPriceREduction.add(product);
-			}
-		}
-		for (ProductVO product : productsWithPriceREduction) {
-			System.out.println("Reduced Products" + product.toString());
-		}
+		/*for (ProductVO product : products) {
+			System.out.println("All Products" + product.toString());
+		}*/
 
 	}
 
@@ -99,9 +90,9 @@ public class ProductDataMapperServiceTest {
 		RestResponse<ProductCatalogue> restResponse = productCatalogueClient.getProducts();
 		List<ProductVO> products = productDataMapperService.process(restResponse.getResponse().getProducts());
 
-		for (ProductVO product : products) {
+		/*for (ProductVO product : products) {
 			System.out.println("Products " + product.toString());
-		}
+		}*/
 
 	}
 
