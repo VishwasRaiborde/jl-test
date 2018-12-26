@@ -38,16 +38,6 @@ public class PricingEngineApp  extends SpringBootServletInitializer {
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 		return application.sources(PricingEngineApp.class);
 	}
-	/*private ApiInfo apiInfo() {
-		return new ApiInfoBuilder().version("2.0").title("Beckman API")
-				.description("This is the specifications api for Beckman Coulter").contact("SL Projects").build();
-	}
-
-	@Bean
-	public Docket petApi() {
-		return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select().paths(PathSelectors.any()).build()
-				.pathMapping("/").useDefaultResponseMessages(false);
-	}*/
 	
 	@Bean
     public Docket api() {
@@ -59,10 +49,10 @@ public class PricingEngineApp  extends SpringBootServletInitializer {
     }
     private ApiInfo apiEndPointsInfo() {
         return new ApiInfoBuilder().title("Spring Boot REST API")
-            .description("Employee Management REST API")
+            .description("Product Management REST API")
             .license("Apache 2.0")
             .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
-            .version("1.0.0")
+            .version("1.0.1")
             .build();
     }
 

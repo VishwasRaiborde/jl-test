@@ -45,13 +45,13 @@ public class ProductService implements IProductService {
 		return null;
 	}
 
-	public List<ProductVO> getProducedsWithWithFilter() {
+	public List<ProductVO> getProducedsWithWithFilter(ProductDataFilter filter) {
 		try {
 
 			RestResponse<ProductCatalogue> restResponse = productCatalogueClient.getProducts();
 			List<ProductVO> productPVOs = productDataMapperService.process(restResponse.getResponse().getProducts());
 			// now populate this filter from the ui perspective and massage the data here
-			ProductDataFilter filter = new ProductDataFilter(productPVOs, PriceLableType.SHOW_WAS_THEN_NOW,ProductSortBy.PRODUCT_PRICE_REDUCTION_DESC);
+			
 			return productDataFilterService.getProcductAfterFilter(filter);
 
 		} catch (NoDataFoundException e) {

@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jl.product.filer.ProductDataFilter;
+import com.jl.product.filer.ProductDataFilter.PriceLableType;
+import com.jl.product.filer.ProductDataFilter.ProductSortBy;
 import com.jl.product.service.IProductService;
 import com.jl.product.vo.ProductVO;
 
@@ -23,8 +26,11 @@ public class ProductPriceController {
 
 	@GetMapping(value = "/products/{labelType}/prices", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<List<ProductVO>> priceReducdedProducts(@PathVariable("labelType") String labelType) {
-
-		List<ProductVO> response = productService.getProducedsWithWithFilter();
+		
+		List<ProductVO> productPVOs = productService.getProducts();
+		
+		ProductDataFilter filter = new ProductDataFilter(productPVOs, PriceLableType.SHOW_WAS_THEN_NOW,	ProductSortBy.PRODUCT_PRICE_REDUCTION_DESC);
+		List<ProductVO> response = productService.getProducedsWithWithFilter(filter);
 		return new ResponseEntity<List<ProductVO>>(response, HttpStatus.OK);
 
 	}

@@ -104,16 +104,16 @@ public class ProductDataFilter extends DataFilter<ProductVO> {
 			}
 		}
 	}
-	
 
-	private void decorateProductForPriceWithWasAndNowAttribute(List<ProductVO> filteredListByCondition, ProductVO productVO) {
-		
+	private void decorateProductForPriceWithWasAndNowAttribute(List<ProductVO> filteredListByCondition,
+			ProductVO productVO) {
+
 		Double wasPrice = productVO.getPrice().getWas();
 		Double then1Price = productVO.getPrice().getThen1();
 		Double then2Price = productVO.getPrice().getThen2();
 		Object nowPrice = productVO.getPrice().getNow();
 		String priceLabel = productVO.getPrice().getCurrency();
-		
+
 		StringBuilder showWasNow = new StringBuilder();
 		showWasNow.append(" {");
 		showWasNow.append("was=");
@@ -128,14 +128,15 @@ public class ProductDataFilter extends DataFilter<ProductVO> {
 		filteredListByCondition.add(productVO);
 	}
 
-	private void decorateProductForPriceWitWasThenAndNowAttribute(List<ProductVO> filteredListByCondition, ProductVO productVO) {
-		
+	private void decorateProductForPriceWitWasThenAndNowAttribute(List<ProductVO> filteredListByCondition,
+			ProductVO productVO) {
+
 		Double wasPrice = productVO.getPrice().getWas();
 		Double then1Price = productVO.getPrice().getThen1();
 		Double then2Price = productVO.getPrice().getThen2();
 		Object nowPrice = productVO.getPrice().getNow();
 		String priceLabel = productVO.getPrice().getCurrency();
-		
+
 		StringBuilder showWasThenNow = new StringBuilder();
 
 		showWasThenNow.append("{");
@@ -172,7 +173,7 @@ public class ProductDataFilter extends DataFilter<ProductVO> {
 		String priceLabel = productVO.getPrice().getCurrency();
 	}
 
-	private  boolean wasHistoricPriceHigherThanPresent(ProductVO product) {
+	private boolean wasHistoricPriceHigherThanPresent(ProductVO product) {
 		PriceVO price = product.getPrice();
 		Double reducedPrice = 0.00;
 
@@ -182,12 +183,6 @@ public class ProductDataFilter extends DataFilter<ProductVO> {
 			reducedPrice = 0.00;
 			product.setReducedPrice(reducedPrice);
 			return false;
-			
-		} else if (price.getThen2() < price.getThen1()) {
-			reducedPrice = price.getThen1() - price.getThen2();
-			price.setReducedPrice(reducedPrice);
-			product.setReducedPrice(reducedPrice);
-			hasPriceReduction = true;
 
 		} else if (price.getNow() instanceof NowPriceRangeVO) {
 			double toPrice = ((NowPriceRangeVO) price.getNow()).getTo();
@@ -204,11 +199,8 @@ public class ProductDataFilter extends DataFilter<ProductVO> {
 			price.setReducedPrice(reducedPrice);
 			product.setReducedPrice(reducedPrice);
 			hasPriceReduction = true;
-
 		}
 		return hasPriceReduction;
 	}
-	
-	
 
 }
