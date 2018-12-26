@@ -43,7 +43,7 @@ public class ProductServiceTest {
 		List<ProductVO> decoreatedProductVOs = productService.getProducedsWithWithFilter(filter);
 		for (ProductVO productVO : decoreatedProductVOs) {
 			System.out.println(productVO.toString());
-		}
+		} 
 	}
 
 }
