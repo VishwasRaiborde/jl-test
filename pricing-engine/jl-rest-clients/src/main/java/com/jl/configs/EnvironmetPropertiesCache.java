@@ -8,6 +8,7 @@ public class EnvironmetPropertiesCache {
 	
 	public static final Hashtable<String, String> colorCache = new Hashtable<String, String>();
 	public static final Map<String,String> propertyMap= new HashMap<String,String>();
+
 	
 
 	private EnvironmetPropertiesCache() {
