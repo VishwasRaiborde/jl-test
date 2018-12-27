@@ -206,7 +206,8 @@ public class ColorFactory {
 
 	public static ColorFactory getInstance() {
 		if (colorFactory == null) {
-			return colorFactory = new ColorFactory();
+			colorFactory = new ColorFactory();
+			return colorFactory;
 		} else {
 			return colorFactory;
 		}

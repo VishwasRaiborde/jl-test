@@ -10,8 +10,6 @@ import com.jl.product.exception.ClientCommunicationException;
 import com.jl.product.exception.NoAppropraiteDataFilterProvidedException;
 import com.jl.product.exception.NoDataFoundException;
 import com.jl.product.filer.ProductDataFilter;
-import com.jl.product.filer.ProductDataFilter.PriceLableType;
-import com.jl.product.filer.ProductDataFilter.ProductSortBy;
 import com.jl.product.filer.ProductDataFilterService;
 import com.jl.product.mapper.ProductDataMapper;
 import com.jl.product.response.RestResponse;
@@ -36,12 +34,11 @@ public class ProductService implements IProductService {
 			return productDataMapperService.process(restResponse.getResponse().getProducts());
 
 		} catch (NoDataFoundException e) {
-			//business exception is needed here 
-			e.printStackTrace();
+
 		} catch (ClientCommunicationException e) {
-			//business exception is needed here 
-			e.printStackTrace();
+
 		}
+		//bad idea
 		return null;
 	}
 
@@ -49,19 +46,17 @@ public class ProductService implements IProductService {
 		try {
 
 			RestResponse<ProductCatalogue> restResponse = productCatalogueClient.getProducts();
-			List<ProductVO> productPVOs = productDataMapperService.process(restResponse.getResponse().getProducts());
+			productDataMapperService.process(restResponse.getResponse().getProducts());
 			return productDataFilterService.getProcductAfterFilter(filter);
 
 		} catch (NoDataFoundException e) {
-			//business exception is needed here 
-			e.printStackTrace();
+			
 		} catch (ClientCommunicationException e) {
 			
-			e.printStackTrace();
 		} catch (NoAppropraiteDataFilterProvidedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
 		}
+		//bad idea
 		return null;
 	}
 
