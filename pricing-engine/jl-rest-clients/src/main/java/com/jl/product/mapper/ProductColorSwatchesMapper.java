@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.jl.factory.ColorFactory;
 import com.jl.product.vo.ColorSwatchVO;
 import com.jl.product.vo.json.ColorSwatch;
-import com.jl.utils.ColorFactory;
 
 @Service
 public class ProductColorSwatchesMapper extends BaseMapper {

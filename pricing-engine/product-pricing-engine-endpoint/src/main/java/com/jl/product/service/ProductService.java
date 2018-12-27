@@ -24,6 +24,7 @@ public class ProductService implements IProductService {
 
 	@Autowired
 	ProductDataMapper productDataMapperService;
+	
 	@Autowired
 	private ProductDataFilterService productDataFilterService;
 

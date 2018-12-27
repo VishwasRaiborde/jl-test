@@ -6,10 +6,10 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.jl.factory.ColorFactory;
 import com.jl.product.mapper.ProductColorSwatchesMapper;
 import com.jl.product.vo.ColorSwatchVO;
 import com.jl.product.vo.json.ColorSwatch;
-import com.jl.utils.ColorFactory;
 
 public class ProductColorSwatchesMapperTest {
 

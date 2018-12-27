@@ -1,4 +1,4 @@
-package com.jl.utils;
+package com.jl.factory;
 
 import java.awt.Color;
 import java.util.HashMap;
