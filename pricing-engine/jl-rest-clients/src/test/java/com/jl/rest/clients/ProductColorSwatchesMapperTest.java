@@ -22,20 +22,19 @@ public class ProductColorSwatchesMapperTest {
 		List<ColorSwatch> colorSwatches = new ArrayList<ColorSwatch>();
 
 		ColorSwatch swatches = new ColorSwatch();
-		swatches.setBasicColor("Purple");
+		swatches.setBasicColor("purple");
 		colorSwatches.add(swatches);
 		List<ColorSwatchVO> colorSwatchVOs = productColorSwatchesMapper.process(colorSwatches);
-		for (ColorSwatchVO colorSwatchVO : colorSwatchVOs) {
+		/*for (ColorSwatchVO colorSwatchVO : colorSwatchVOs) {
 			System.out.println(colorSwatchVO.toString());
-		}
+		}*/
 
 	}
 	
 	@Test
 	public void testSet() {
-		List<ColorSwatch> colorSwatches = new ArrayList<ColorSwatch>();
-		ColorFactory.getRGBValueForColor("Prurple");
-
+		ColorFactory.getInstance().getRGBValueForColor("purple");
+		ColorFactory.getInstance().getHexString("purple");
 	}
 
 }

@@ -20,6 +20,7 @@ public abstract class BaseMapper {
 	}
 
 	public NowPriceRangeVO processComplexType(Map<String, String> t) {
+		// this is when the attributes are passed in as map i.e Dynamic Attribues these are growable in case new attributes are added make chanage here
 		NowPriceRangeVO nowPrice = new NowPriceRangeVO();
 		nowPrice.setFrom((Double.parseDouble(t.get("from"))));
 		nowPrice.setTo(Double.parseDouble(t.get("to")));

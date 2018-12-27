@@ -1,5 +1,6 @@
 package com.jl.utils;
 
+import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,8 +9,9 @@ import org.apache.commons.lang3.StringUtils;
 import com.jl.product.vo.RGB;
 
 public class ColorFactory {
-	
-	private final static Map<String, RGB> colorMap = new HashMap <String, RGB>(256);
+
+	private static Map<String, RGB> colorMap = new HashMap<String, RGB>(256);
+	private static ColorFactory colorFactory;
 
 	static {
 		colorMap.put("black", new RGB(0, 0, 0));
@@ -167,18 +169,46 @@ public class ColorFactory {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static Map<String, RGB> addColor(String colorName, RGB rgb) {
+	public Map<String, RGB> addColor(String colorName, RGB rgb) {
 		return (Map<String, RGB>) colorMap.put(colorName, rgb);
 	}
 
-	public static String getRGBValueForColor(String colorName) {
+	public String getRGBValueForColor(String colorName) {
 		colorName = colorName.toLowerCase();
-		if(StringUtils.isNotBlank(colorName) && colorMap.containsKey(colorName)) {
+		if (StringUtils.isNotBlank(colorName) && colorMap.containsKey(colorName)) {
 			RGB rgbColor = colorMap.get(colorName.toLowerCase());
 			return rgbColor.getRGB();
-		}else {
-			return "rgb{not parsable color "+colorName+"}";
+		} else {
+			return "rgb{not parsable color " + colorName + "}";
 		}
+
+	}
+
+	public String getHexString(String colorName) throws NullPointerException {
 		
+		if (StringUtils.isBlank(colorName)) {
+			return "";
+		}
+		if (colorMap.containsKey(colorName.toLowerCase())) {
+
+			RGB rgbColor = colorMap.get(colorName.toLowerCase());
+			Color colour = new Color(rgbColor.getRed(), rgbColor.getGreen(), rgbColor.getBlue());
+
+			String hexColour = Integer.toHexString(colour.getRGB() & 0xffffff);
+			if (hexColour.length() < 6) {
+				hexColour = "000000".substring(0, 6 - hexColour.length()) + hexColour;
+			}
+
+			return "#" + hexColour;
+		}
+		return "hex{not parsable hex for color " + colorName + "}";
+	}
+
+	public static ColorFactory getInstance() {
+		if (colorFactory == null) {
+			return colorFactory = new ColorFactory();
+		} else {
+			return colorFactory;
+		}
 	}
 }

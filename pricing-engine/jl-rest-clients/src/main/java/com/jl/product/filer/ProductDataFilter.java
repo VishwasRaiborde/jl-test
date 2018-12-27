@@ -38,7 +38,7 @@ public class ProductDataFilter extends DataFilter<ProductVO> {
 
 		for (ProductVO productVO : productVOs) {
 
-			boolean hasPriceReduced = wasHistoricPriceHigherThanPresent(productVO);
+			boolean hasPriceReduced = hasPriceReduction(productVO);
 			if (hasPriceReduced) {
 
 				switch (labelType) {
@@ -187,7 +187,7 @@ public class ProductDataFilter extends DataFilter<ProductVO> {
 		String priceLabel = productVO.getPrice().getCurrency();
 	}*/
 
-	private boolean wasHistoricPriceHigherThanPresent(ProductVO product) {
+	private boolean hasPriceReduction(ProductVO product) {
 		PriceVO price = product.getPrice();
 		Double reducedPrice ;
 
