@@ -57,9 +57,9 @@ public class ProductCatalogueClientTest {
 		assertTrue(restResponse.isSuccessfull());
 		
 		List<Product>  products = restResponse.getResponse().getProducts();
-		for(Product product:products) {
+		/*for(Product product:products) {
 			System.out.println(product.toString());
-		}
+		}*/
 		assertNotNull(products);
 	}
 	
