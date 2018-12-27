@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.jl.configs.EnvironmetProperties;
+import com.jl.configs.EnvironmetPropertiesCache;
 import com.jl.configs.RestClientApp;
 import com.jl.product.clients.rest.ProductCatalogueClient;
 import com.jl.product.exception.ClientCommunicationException;
@@ -38,8 +38,8 @@ public class ProductDataMapperServiceTest {
 
 	@Before
 	public void before() {
-		EnvironmetProperties.clearAllConfigs();
-		EnvironmetProperties.addProperty(EnvironmetProperties.REST_URL_PRODUCTS_CATALOGUE,
+		EnvironmetPropertiesCache.clearAllConfigs();
+		EnvironmetPropertiesCache.addProperty(EnvironmetPropertiesCache.REST_URL_PRODUCTS_CATALOGUE,
 				VALID_REST_URL_PRODUCTS_CATALOGUE);
 	}
 

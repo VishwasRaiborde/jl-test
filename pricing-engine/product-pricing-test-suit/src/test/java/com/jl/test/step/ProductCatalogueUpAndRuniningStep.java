@@ -12,7 +12,7 @@ import org.jbehave.core.annotations.When;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.jl.configs.EnvironmetProperties;
+import com.jl.configs.EnvironmetPropertiesCache;
 import com.jl.product.clients.rest.ProductCatalogueClient;
 import com.jl.product.exception.ClientCommunicationException;
 import com.jl.product.exception.NoDataFoundException;
@@ -35,8 +35,8 @@ public class ProductCatalogueUpAndRuniningStep {
 
 	@When("a connection request is made to product catalog rest url")
 	public void whenAConnectionRequestIsMadeToProductCatalogRestUrl() {
-		EnvironmetProperties.clearAllConfigs();
-		EnvironmetProperties.addProperty(EnvironmetProperties.REST_URL_PRODUCTS_CATALOGUE,
+		EnvironmetPropertiesCache.clearAllConfigs();
+		EnvironmetPropertiesCache.addProperty(EnvironmetPropertiesCache.REST_URL_PRODUCTS_CATALOGUE,
 				cachedMap.get("url").toString());
 		RestResponse<ProductCatalogue> productCatalogue;
 		try {

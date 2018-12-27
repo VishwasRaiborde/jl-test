@@ -25,7 +25,11 @@ public class ProductDataMapper extends BaseMapper {
 
 			ProductVO targetProductVO = copyProductAttributes(sourceProduct);
 			targetProductVO.setPrice(copyPriceAttributes(sourceProduct.getPrice()));
-			targetProductVO.setColorSwatches(copyColorSwatchAttributes(sourceProduct.getColorSwatches()));
+			
+			ProductColorSwatchesMapper mapper = new ProductColorSwatchesMapper();
+			List<ColorSwatchVO> colorSwatchVOs = mapper.process(sourceProduct.getColorSwatches());
+			targetProductVO.setColorSwatches(colorSwatchVOs);
+			
 			productPVOsList.add(targetProductVO);
 		}
 
@@ -49,16 +53,6 @@ public class ProductDataMapper extends BaseMapper {
 		targetPricePVO.setThen2(StringUtils.isNotBlank(sourcePrice.getThen2()) ? Double.parseDouble(sourcePrice.getThen2()) : 0);
 		targetPricePVO.setNow(processComplexType(sourcePrice.getNow()));
 		return targetPricePVO;
-	}
-
-	private List<ColorSwatchVO> copyColorSwatchAttributes(List<ColorSwatch> colorSwatches) {
-		List<ColorSwatchVO> colorSwatchVOs = new ArrayList<ColorSwatchVO>();
-		for (ColorSwatch colorSwatch : colorSwatches) {
-			ColorSwatchVO colorSwatchVO = new ColorSwatchVO();
-			BeanUtils.copyProperties(colorSwatch, colorSwatchVO);
-			colorSwatchVOs.add(colorSwatchVO);
-		}
-		return colorSwatchVOs;
 	}
 
 	public Object processComplexType(Object t) {

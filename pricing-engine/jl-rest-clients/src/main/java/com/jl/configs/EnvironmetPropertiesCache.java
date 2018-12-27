@@ -1,17 +1,22 @@
 package com.jl.configs;
 
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 
-public class EnvironmetProperties {
+public class EnvironmetPropertiesCache {
+	
+	public static final Hashtable<String, String> colorCache = new Hashtable<String, String>();
+	public static final Map<String,String> propertyMap= new HashMap<String,String>();
+	
 
-	private EnvironmetProperties() {
+	private EnvironmetPropertiesCache() {
 		
 	}
 	
 	public static final String REST_URL_PRODUCTS_CATALOGUE = "rest.url";
 	
-	public static final Map<String,String> propertyMap= new HashMap<String,String>();
+
 	
 	public static void clearAllConfigs() {
 		propertyMap.clear();

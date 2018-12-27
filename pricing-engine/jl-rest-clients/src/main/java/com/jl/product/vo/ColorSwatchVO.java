@@ -10,17 +10,20 @@ public class ColorSwatchVO implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private String color;
+	 private String color;
 
-	private String basicColor;
+	transient private String basicColor;
 
-	private String colorSwatchUrl;
+	transient private String colorSwatchUrl;
 
-	private String imageUrl;
+	transient private String imageUrl;
 
-	private Boolean isAvailable;
+	transient private Boolean isAvailable;
 
-	private String skuId;
+	transient private String skuId;
+	
+	private String rgbColor ;
+	
 
 	public String getColor() {
 		return color;
@@ -72,10 +75,21 @@ public class ColorSwatchVO implements Serializable {
 
 	
 
+	public String getRgbColor() {
+		return rgbColor;
+	}
+
+	public void setRgbColor(String rgbColor) {
+		this.rgbColor = rgbColor;
+	}
+
 	@Override
 	public String toString() {
-		return "ColorSwatchPVO [color=" + color + ", basicColor=" + basicColor + ", colorSwatchUrl=" + colorSwatchUrl
-				+ ", imageUrl=" + imageUrl + ", isAvailable=" + isAvailable + ", skuId=" + skuId + "]";
+		return "ColorSwatchVO [color=" + color + ", basicColor=" + basicColor + ", colorSwatchUrl=" + colorSwatchUrl
+				+ ", imageUrl=" + imageUrl + ", isAvailable=" + isAvailable + ", skuId=" + skuId + ", rgbColor="
+				+ rgbColor + "]";
 	}
+
+	
 
 }

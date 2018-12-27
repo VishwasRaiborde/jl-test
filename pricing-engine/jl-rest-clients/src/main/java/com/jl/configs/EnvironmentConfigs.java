@@ -11,8 +11,8 @@ public class EnvironmentConfigs {
 
 	@Bean
 	public Map buildPropertiesOnload() {
-		EnvironmetProperties.addProperty(EnvironmetProperties.REST_URL_PRODUCTS_CATALOGUE, "https://jl-nonprod-syst.apigee.net/v1/categories/600001506/products?key=2ALHCAAs6ikGRBoy6eTHA58RaG097Fma");
-		return EnvironmetProperties.propertyMap;
+		EnvironmetPropertiesCache.addProperty(EnvironmetPropertiesCache.REST_URL_PRODUCTS_CATALOGUE, "https://jl-nonprod-syst.apigee.net/v1/categories/600001506/products?key=2ALHCAAs6ikGRBoy6eTHA58RaG097Fma");
+		return EnvironmetPropertiesCache.propertyMap;
 	}
 
 }
