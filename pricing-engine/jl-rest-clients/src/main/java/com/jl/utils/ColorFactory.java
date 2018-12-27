@@ -3,9 +3,12 @@ package com.jl.utils;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.jl.product.vo.RGB;
 
 public class ColorFactory {
+	
 	private final static Map<String, RGB> colorMap = new HashMap <String, RGB>(256);
 
 	static {
@@ -163,12 +166,19 @@ public class ColorFactory {
 
 	}
 
-	public static Map<String, RGB> addColor(String ColorName, RGB rgb) {
-		return (Map<String, RGB>) colorMap.put(ColorName, rgb);
+	@SuppressWarnings("unchecked")
+	public static Map<String, RGB> addColor(String colorName, RGB rgb) {
+		return (Map<String, RGB>) colorMap.put(colorName, rgb);
 	}
 
 	public static String getRGBValueForColor(String colorName) {
-		RGB rgbColor = colorMap.get(colorName.toLowerCase());
-		return rgbColor.getRGB();
+		colorName = colorName.toLowerCase();
+		if(StringUtils.isNotBlank(colorName) && colorMap.containsKey(colorName)) {
+			RGB rgbColor = colorMap.get(colorName.toLowerCase());
+			return rgbColor.getRGB();
+		}else {
+			return "rgb{not parsable color "+colorName+"}";
+		}
+		
 	}
 }

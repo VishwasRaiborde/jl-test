@@ -14,7 +14,7 @@ public  class RGB {
 	}
 
 	public String getRGB() {
-		return "rgb{" + this.red + "," + this.blue + "," + this.green + "}";
+		return "rgb{" + this.red + "," + this.green + "," + this.blue + "}";
 
 	}
 }
