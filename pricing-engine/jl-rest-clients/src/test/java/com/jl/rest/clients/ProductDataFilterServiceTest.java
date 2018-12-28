@@ -1,5 +1,6 @@
 package com.jl.rest.clients;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -53,12 +54,12 @@ public class ProductDataFilterServiceTest {
 		
 		RestResponse<ProductCatalogue> restResponse = productCatalogueClient.getProducts();
 		assertTrue(restResponse.isSuccessfull());
-		List<ProductVO> productPVOs = productDataMapperService.process(restResponse.getResponse().getProducts());
 		List<ProductVO> vos = productDataFilterService.getProcductAfterFilter(null);
 		
 	/*	for(ProductVO productVO :vos) {
 			System.out.println(productVO.getPrice().toString());
 		}*/
+		assertNotNull(vos);
 		
 	}
 	
@@ -75,7 +76,7 @@ public class ProductDataFilterServiceTest {
 /*		for(ProductVO productVO :vos) {
 			System.out.println(productVO.toString());
 		}*/
-		
+		assertNotNull(vos);
 	}
 
 }

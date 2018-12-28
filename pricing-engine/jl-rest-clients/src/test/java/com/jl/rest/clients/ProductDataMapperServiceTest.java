@@ -1,5 +1,6 @@
 package com.jl.rest.clients;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -49,7 +50,8 @@ public class ProductDataMapperServiceTest {
 		List<ProductVO> productPVOs = productDataMapperService.process(restResponse.getResponse().getProducts());
 		/*for (ProductVO product : productPVOs) {
 			System.out.println(product.toString());
-		}*/
+		}*/ 
+		assertNotNull(productPVOs);
 
 	}
 
@@ -70,11 +72,15 @@ public class ProductDataMapperServiceTest {
 		productWithSimplePriceData.setPrice(price);
 
 		Product productWithComplexPriceData = new Product();
+		productWithComplexPriceData.setProductId("100000");
+		productWithComplexPriceData.setTitle("TEST PRODUCT");
+		productWithComplexPriceData.setDefaultSkuId("121212");
+		
 		Price price2 = new Price();
 		price2.setCurrency("GBP");
-		NowPriceRangeVO nowPricePVO = new NowPriceRangeVO();
-		nowPricePVO.setFrom(59.00);
-		nowPricePVO.setTo(68.00);
+			NowPriceRangeVO nowPricePVO = new NowPriceRangeVO();
+			nowPricePVO.setFrom(59.00);
+			nowPricePVO.setTo(68.00);
 		price2.setNow(nowPricePVO);
 		productWithComplexPriceData.setPrice(price2);
 
@@ -82,10 +88,12 @@ public class ProductDataMapperServiceTest {
 		productPVOs.add(productWithComplexPriceData);
 
 		List<ProductVO> products = productDataMapperService.process(productPVOs);
+		assertNotNull(products);
 		for (ProductVO product : products) {
 			System.out.println("All Products" + product.toString());
+			assertNotNull(product.getPrice().getNow());
 		}
-
+		
 	}
 
 	@Test
@@ -97,6 +105,8 @@ public class ProductDataMapperServiceTest {
 		/*for (ProductVO product : products) {
 			System.out.println("Products " + product.toString());
 		}*/
+		
+		assertNotNull(products);
 
 	}
 
