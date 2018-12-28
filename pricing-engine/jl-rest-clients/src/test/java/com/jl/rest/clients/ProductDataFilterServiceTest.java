@@ -45,8 +45,7 @@ public class ProductDataFilterServiceTest {
 	@Before
 	public void before() {
 		EnvironmetPropertiesCache.clearAllConfigs();
-		EnvironmetPropertiesCache.addProperty(EnvironmetPropertiesCache.REST_URL_PRODUCTS_CATALOGUE,
-				VALID_REST_URL_PRODUCTS_CATALOGUE);
+		EnvironmetPropertiesCache.addProperty(EnvironmetPropertiesCache.REST_URL_PRODUCTS_CATALOGUE,VALID_REST_URL_PRODUCTS_CATALOGUE);
 	}
 
 	@Test(expected=NoAppropraiteDataFilterProvidedException.class)
