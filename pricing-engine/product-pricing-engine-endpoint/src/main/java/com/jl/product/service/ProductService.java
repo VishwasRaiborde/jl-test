@@ -24,41 +24,24 @@ public class ProductService implements IProductService {
 
 	@Autowired
 	ProductDataMapper productDataMapperService;
-	
+
 	@Autowired
 	private ProductDataFilterService productDataFilterService;
 
-	public List<ProductVO> getProducts() {
-		try {
+	public List<ProductVO> getProducts() throws NoDataFoundException, ClientCommunicationException {
 
-			RestResponse<ProductCatalogue> restResponse = productCatalogueClient.getProducts();
-			return productDataMapperService.process(restResponse.getResponse().getProducts());
+		RestResponse<ProductCatalogue> restResponse = productCatalogueClient.getProducts();
+		return productDataMapperService.process(restResponse.getResponse().getProducts());
 
-		} catch (NoDataFoundException e) {
-
-		} catch (ClientCommunicationException e) {
-
-		}
-		//bad idea
-		return null;
 	}
 
-	public List<ProductVO> getProducedsWithWithFilter(ProductDataFilter filter) {
-		try {
+	public List<ProductVO> getProducedsWithWithFilter(ProductDataFilter filter)
+			throws NoAppropraiteDataFilterProvidedException, NoDataFoundException, ClientCommunicationException {
 
-			RestResponse<ProductCatalogue> restResponse = productCatalogueClient.getProducts();
-			productDataMapperService.process(restResponse.getResponse().getProducts());
-			return productDataFilterService.getProcductAfterFilter(filter);
+		RestResponse<ProductCatalogue> restResponse = productCatalogueClient.getProducts();
+		productDataMapperService.process(restResponse.getResponse().getProducts());
+		return productDataFilterService.getProcductAfterFilter(filter);
 
-		} catch (NoDataFoundException e) {
-			
-		} catch (ClientCommunicationException e) {
-			
-		} catch (NoAppropraiteDataFilterProvidedException e) {
-			
-		}
-		//bad idea
-		return null;
 	}
 
 }

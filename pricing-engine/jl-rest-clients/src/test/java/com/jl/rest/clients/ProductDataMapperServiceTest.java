@@ -39,8 +39,7 @@ public class ProductDataMapperServiceTest {
 	@Before
 	public void before() {
 		EnvironmetPropertiesCache.clearAllConfigs();
-		EnvironmetPropertiesCache.addProperty(EnvironmetPropertiesCache.REST_URL_PRODUCTS_CATALOGUE,
-				VALID_REST_URL_PRODUCTS_CATALOGUE);
+		EnvironmetPropertiesCache.addProperty(EnvironmetPropertiesCache.REST_URL_PRODUCTS_CATALOGUE,VALID_REST_URL_PRODUCTS_CATALOGUE);
 	}
 
 	@Test
@@ -60,6 +59,11 @@ public class ProductDataMapperServiceTest {
 		List<Product> productPVOs = new ArrayList<Product>();
 
 		Product productWithSimplePriceData = new Product();
+		
+		productWithSimplePriceData.setProductId("100000");
+		productWithSimplePriceData.setTitle("TEST PRODUCT");
+		productWithSimplePriceData.setDefaultSkuId("121212");
+		
 		Price price = new Price();
 		price.setCurrency("GBP");
 		price.setNow("99.00");
@@ -78,9 +82,9 @@ public class ProductDataMapperServiceTest {
 		productPVOs.add(productWithComplexPriceData);
 
 		List<ProductVO> products = productDataMapperService.process(productPVOs);
-		/*for (ProductVO product : products) {
+		for (ProductVO product : products) {
 			System.out.println("All Products" + product.toString());
-		}*/
+		}
 
 	}
 

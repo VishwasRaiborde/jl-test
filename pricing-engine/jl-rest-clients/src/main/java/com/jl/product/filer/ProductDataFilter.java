@@ -128,24 +128,28 @@ public class ProductDataFilter extends DataFilter<ProductVO> {
 		showWasThenNow.append(OPENING_BRACES);
 		showWasThenNow.append(WAS_PRICE_LABEL);
 		showWasThenNow.append(wasPrice);
+		showWasThenNow.append(SPACE);
 		showWasThenNow.append(priceLabel != null ? priceLabel : "");
 		showWasThenNow.append(COMMA_SEPERATOR);
 
-		if (StringUtils.isNotBlank(then1Price.toString())) {
+		if (StringUtils.isNotBlank(then1Price.toString()) && (then1Price > 0)) {
 			showWasThenNow.append(THEN_1_PRICE_LABEL);
 			showWasThenNow.append(then1Price);
+			showWasThenNow.append(SPACE);
 			showWasThenNow.append(COMMA_SEPERATOR);
 		}
 
-		if (StringUtils.isNotBlank(then2Price.toString())) {
+		if (StringUtils.isNotBlank(then2Price.toString()) && (then2Price > 0)) {
 			showWasThenNow.append(THEN_2_PRICE_LABEL);
 			showWasThenNow.append(then2Price);
+			showWasThenNow.append(SPACE);
 			showWasThenNow.append(priceLabel != null ? priceLabel : "");
 			showWasThenNow.append(COMMA_SEPERATOR);
 		}
 
 		showWasThenNow.append(NOW_PRICE_LABEL);
 		showWasThenNow.append(nowPrice);
+		showWasThenNow.append(SPACE);
 		showWasThenNow.append(priceLabel != null ? priceLabel : "");
 
 		showWasThenNow.append(CLOSING_BRACES);

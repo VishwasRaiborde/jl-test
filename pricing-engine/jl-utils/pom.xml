@@ -6,10 +6,15 @@
 		<version>0.0.1-SNAPSHOT</version> </parent> -->
 	<artifactId>jl-utils</artifactId>
 
-	<parent>
+	<!-- <parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.0.5.RELEASE</version>
+	</parent> -->
+	<parent>
+		<groupId>com.jl.product</groupId>
+		<artifactId>pricing-engine</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
 	<properties>

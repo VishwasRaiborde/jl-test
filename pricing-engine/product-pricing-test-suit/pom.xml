@@ -13,12 +13,11 @@
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.1.1.RELEASE</version>
 	</parent>
-
 	<dependencies>
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -45,10 +44,15 @@
 			<version>2.3.23</version>
 		</dependency>
 		<dependency>
-			<groupId>com.jlp.product.ms</groupId>
+			<groupId>com.jl.product</groupId>
 			<artifactId>product-pricing-engine-endpoint-ms</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+	<!-- 	<dependency>
+			<groupId>com.jl.product</groupId>
+			<artifactId>jl-rest-clients</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency> -->
 	</dependencies>
 
 	<properties>
