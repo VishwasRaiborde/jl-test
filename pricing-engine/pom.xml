@@ -6,42 +6,34 @@
 	<artifactId>pricing-engine</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+
 	<modules>
-		<module>pricing-rules-commons</module>
 		<module>jl-utils</module>
 		<module>jl-rest-clients</module>
 		<module>product-pricing-engine-endpoint</module>
 		<module>product-pricing-test-suit</module>
 	</modules>
 
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.0.RELEASE</version>
-		<relativePath />
-	</parent>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
-	</properties>
-
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-rest</artifactId>
-		</dependency>
-	</dependencies>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>2.1.1.RELEASE</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	<!-- <dependencies> <dependency> <groupId>org.springframework.boot</groupId> 
+		<artifactId>spring-boot-starter</artifactId> </dependency> <dependency> <groupId>org.springframework</groupId> 
+		<artifactId>spring-web</artifactId> </dependency> <dependency> <groupId>org.springframework.boot</groupId> 
+		<artifactId>spring-boot-starter-test</artifactId> <scope>test</scope> </dependency> 
+		</dependencies> -->
 
 	<build>
 		<plugins>
@@ -51,5 +43,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
