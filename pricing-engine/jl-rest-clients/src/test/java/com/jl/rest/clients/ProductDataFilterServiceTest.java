@@ -1,5 +1,6 @@
 package com.jl.rest.clients;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -45,8 +46,7 @@ public class ProductDataFilterServiceTest {
 	@Before
 	public void before() {
 		EnvironmetPropertiesCache.clearAllConfigs();
-		EnvironmetPropertiesCache.addProperty(EnvironmetPropertiesCache.REST_URL_PRODUCTS_CATALOGUE,
-				VALID_REST_URL_PRODUCTS_CATALOGUE);
+		EnvironmetPropertiesCache.addProperty(EnvironmetPropertiesCache.REST_URL_PRODUCTS_CATALOGUE,VALID_REST_URL_PRODUCTS_CATALOGUE);
 	}
 
 	@Test(expected=NoAppropraiteDataFilterProvidedException.class)
@@ -60,6 +60,7 @@ public class ProductDataFilterServiceTest {
 	/*	for(ProductVO productVO :vos) {
 			System.out.println(productVO.getPrice().toString());
 		}*/
+		assertNotNull(vos);
 		
 	}
 	
@@ -76,7 +77,7 @@ public class ProductDataFilterServiceTest {
 /*		for(ProductVO productVO :vos) {
 			System.out.println(productVO.toString());
 		}*/
-		
+		assertNotNull(vos);
 	}
 
 }
