@@ -54,7 +54,6 @@ public class ProductDataFilterServiceTest {
 		
 		RestResponse<ProductCatalogue> restResponse = productCatalogueClient.getProducts();
 		assertTrue(restResponse.isSuccessfull());
-		List<ProductVO> productPVOs = productDataMapperService.process(restResponse.getResponse().getProducts());
 		List<ProductVO> vos = productDataFilterService.getProcductAfterFilter(null);
 		
 	/*	for(ProductVO productVO :vos) {
