@@ -24,7 +24,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.github.reeda.springbootjbehave.LiveTestApp;
+import com.jl.bdd.app.LiveTestApp; 
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
