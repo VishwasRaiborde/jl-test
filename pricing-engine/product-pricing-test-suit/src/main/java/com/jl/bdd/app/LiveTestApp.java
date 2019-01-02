@@ -1,4 +1,4 @@
-package com.github.reeda.springbootjbehave;
+package com.jl.bdd.app;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -8,8 +8,8 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan("com.jl")
 public class LiveTestApp {
 	public static void main(String args[]) {
-		//SpringApplication.run(LiveTestApp.class);
+
 		SpringApplicationBuilder builder = new SpringApplicationBuilder(LiveTestApp.class);
-        builder.headless(false).run(args);
+        builder.headless(false).run(args); 
 	}
 }

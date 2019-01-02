@@ -25,6 +25,11 @@ public class ProductCataloguePOJOBuilder {
 	 * @param args
 	 */
 	
+	private static final String PACKAGE_NAME = "com.jl.product.catalogue.generated.vo";
+	private static final String JSON_EXTENSION = ".json";
+	private static final String JSON_FILE_PATH = "/jsonfeed/productCatalogueJSON.json";
+	private static final String OUTPUT_DIR = "src/main/java";
+	
 
 	public void convert2JSON(URL inputJson, File outputPojoDirectory, String packageName, String className)
 			throws IOException {
@@ -45,12 +50,11 @@ public class ProductCataloguePOJOBuilder {
 	}
 	
 	public static void main(String[] args) {
-		String packageName = "com.jl.product.catalogue.generated.vo";
-		File inputJson = new File("." + File.separator + "/jsonfeed/productCatalogueJSON.json");
-		File outputPojoDirectory = new File("." + File.separator + "src/main/java");
+		File inputJson = new File("." + File.separator + JSON_FILE_PATH);
+		File outputPojoDirectory = new File("." + File.separator + OUTPUT_DIR);
 		outputPojoDirectory.mkdirs();
 		try {
-			new ProductCataloguePOJOBuilder().convert2JSON(inputJson.toURI().toURL(), outputPojoDirectory, packageName,inputJson.getName().replace(".json", ""));
+			new ProductCataloguePOJOBuilder().convert2JSON(inputJson.toURI().toURL(), outputPojoDirectory, PACKAGE_NAME,inputJson.getName().replace(JSON_EXTENSION, ""));
 		} catch (IOException e) {
 			//
 		}
