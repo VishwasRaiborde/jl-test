@@ -14,10 +14,8 @@
 		<version>2.1.1.RELEASE</version>
 	</parent>
 	<dependencies>
-		<!-- <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency> -->
+		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-web</artifactId> 
+			</dependency> -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -43,11 +41,8 @@
 			<artifactId>freemarker</artifactId>
 			<version>2.3.23</version>
 		</dependency>
-		<!-- <dependency>
-			<groupId>com.jl.product</groupId>
-			<artifactId>product-pricing-engine-endpoint-ms</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>com.jl.product</groupId> <artifactId>product-pricing-engine-endpoint-ms</artifactId> 
+			<version>0.0.1-SNAPSHOT</version> </dependency> -->
 		<dependency>
 			<groupId>com.jl.product</groupId>
 			<artifactId>jl-rest-clients</artifactId>
@@ -58,6 +53,79 @@
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
+	<build>
+		<plugins>
 
+			<plugin>
+				<groupId>org.jbehave</groupId>
+				<artifactId>jbehave-maven-plugin</artifactId>
+				<version>4.0.4</version>
+				<executions>
+					<execution>
+						<id>run-stories-as-embeddables</id>
+						<phase>integration-test</phase>
+						<configuration>
+							<includes>
+								<include>**/*Steps.java</include>
+							</includes>
+							<ignoreFailureInStories>true</ignoreFailureInStories>
+							<ignoreFailureInView>false</ignoreFailureInView>
+						</configuration>
+						<goals>
+							<goal>run-stories-as-embeddables</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>unpack-jbehave-site-resources</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<overwriteReleases>false</overwriteReleases>
+							<overwriteSnapshots>true</overwriteSnapshots>
+							<artifactItems>
+								<artifactItem>
+									<groupId>org.jbehave.site</groupId>
+									<artifactId>jbehave-site-resources</artifactId>
+									<version>3.3</version>
+									<type>zip</type>
+									<outputDirectory>${project.build.directory}/jbehave/view</outputDirectory>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+					<execution>
+						<id>unpack-jbehave-reports-resources</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<overwriteReleases>false</overwriteReleases>
+							<overwriteSnapshots>true</overwriteSnapshots>
+							<artifactItems>
+								<artifactItem>
+									<groupId>org.jbehave</groupId>
+									<artifactId>jbehave-core</artifactId>
+									<version>${jbehave.version}</version>
+									<outputDirectory>${project.build.directory}/jbehave/view</outputDirectory>
+									<includes>**\/*.css,**\/*.ftl,**\/*.js</includes>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
 
 </project>

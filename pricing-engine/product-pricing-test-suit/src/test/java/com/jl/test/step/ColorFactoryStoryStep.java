@@ -25,20 +25,20 @@ public class ColorFactoryStoryStep {
 		String hexValueforColor = factory.getInstance().getHexString(colorName);
 		String rgbValueforColor = factory.getInstance().getRGBValueForColor(colorName);
 		
-		DataStore.cachedMap.put("hexValueforColor", hexValueforColor);
-		DataStore.cachedMap.put("rgbValueforColor", rgbValueforColor);
+		DataStoreSteps.cachedMap.put("hexValueforColor", hexValueforColor);
+		DataStoreSteps.cachedMap.put("rgbValueforColor", rgbValueforColor);
 	}
 
 	@Then("a color hex value is returned by color factory")
 	public void thenAColorHexValueIsReturnedByColorFactory() {
-		String  hexValueforColor =  (String) DataStore.cachedMap.get("hexValueforColor");
+		String  hexValueforColor =  (String) DataStoreSteps.cachedMap.get("hexValueforColor");
 		System.out.println(hexValueforColor);
 		assertTrue(hexValueforColor != null); 
 	}
 	
 	@Then("a color rgb value is returned by color factory")
 	public void thenAColorRgbValueIsReturnedByColorFactory() {
-		String rgbValueforColor = (String) DataStore.cachedMap.get("rgbValueforColor");
+		String rgbValueforColor = (String) DataStoreSteps.cachedMap.get("rgbValueforColor");
 		System.out.println(rgbValueforColor);
 		assertTrue(rgbValueforColor != null);
 	}

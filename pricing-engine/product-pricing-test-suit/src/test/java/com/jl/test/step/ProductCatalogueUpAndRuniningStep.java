@@ -42,7 +42,7 @@ public class ProductCatalogueUpAndRuniningStep {
 
 	@Given("a rest url for product catalog is given $url")
 	public void givenARestUrlForProductCatalogIsGiven(@Named("url") String url) {
-		DataStore.cachedMap.put("url", url);
+		DataStoreSteps.cachedMap.put("url", url);
 	}
 
 	@When("a connection request is made to product catalog rest url")
@@ -50,7 +50,7 @@ public class ProductCatalogueUpAndRuniningStep {
 		RestResponse<ProductCatalogue> productCatalogue;
 		try {
 			productCatalogue = productCatalogueClient.getProducts();
-			DataStore.cachedMap.put(DataStore.PRODUCT_KEY, productCatalogue.getResponse().getProducts());
+			DataStoreSteps.cachedMap.put(DataStoreSteps.PRODUCT_KEY, productCatalogue.getResponse().getProducts());
 			
 		} catch (NoDataFoundException | ClientCommunicationException e) {
 		}
@@ -58,23 +58,23 @@ public class ProductCatalogueUpAndRuniningStep {
 
 	@Then("a json array of product should be provided and confirm  end point are up and running")
 	public void thenAJsonArrayOfProductShouldBeProvidedAndConfirmEndPointAreUpAndRunning() {
-		List<Product> products = (List<Product>) DataStore.cachedMap.get(DataStore.PRODUCT_KEY);
+		List<Product> products = (List<Product>) DataStoreSteps.cachedMap.get(DataStoreSteps.PRODUCT_KEY);
 		assertTrue(products != null); 
 	}
 	
 	@When("filter on catalog data is ShowWasNow and sort order is highest reducing first")
 	public void whenFilterOnCatalogDataIsShowWasNowAndSortOrderIsHighestReducingFirst() throws NoAppropraiteDataFilterProvidedException {
 		
-		List<Product> products = (List<Product>) DataStore.cachedMap.get(DataStore.PRODUCT_KEY);
+		List<Product> products = (List<Product>) DataStoreSteps.cachedMap.get(DataStoreSteps.PRODUCT_KEY);
 		List<ProductVO> productPVOs = productDataMapperService.process(products);
 		ProductDataFilter filter = new ProductDataFilter(productPVOs, PriceLableType.SHOW_WAS_NOW,ProductSortBy.PRODUCT_PRICE_REDUCTION_DESC);
 		List<ProductVO> productVOsWithShowNowFilter = productDataFilterService.getProcductAfterFilter(filter);
-		DataStore.cachedMap.put(DataStore.FILTERED_PRODUCT_WITH_LABEL_WAS_NOW_KEY, productVOsWithShowNowFilter);
+		DataStoreSteps.cachedMap.put(DataStoreSteps.FILTERED_PRODUCT_WITH_LABEL_WAS_NOW_KEY, productVOsWithShowNowFilter);
 	}
 
 	@Then("an  array of product should be provided as per the given condition")
 	public void thenAnArrayOfProductShouldBeProvidedAsPerTheGivenCondition() {
-		List<ProductVO> filteredProductVOs = (List<ProductVO>) DataStore.cachedMap.get(DataStore.FILTERED_PRODUCT_WITH_LABEL_WAS_NOW_KEY);
+		List<ProductVO> filteredProductVOs = (List<ProductVO>) DataStoreSteps.cachedMap.get(DataStoreSteps.FILTERED_PRODUCT_WITH_LABEL_WAS_NOW_KEY);
 		for (ProductVO productVO : filteredProductVOs) {
 			System.out.println("ShowWasNow Filter - " + productVO.getNowPrice());
 		}
@@ -84,21 +84,21 @@ public class ProductCatalogueUpAndRuniningStep {
 	@When("filter on catalog data is ShowWasThenNow and sort order is highest reducing first")
 	public void whenFilterOnCatalogDataIsShowWasThenNowAndSortOrderIsHighestReducingFirst() throws NoAppropraiteDataFilterProvidedException {
 		
-		List<Product> products = (List<Product>) DataStore.cachedMap.get(DataStore.PRODUCT_KEY);
+		List<Product> products = (List<Product>) DataStoreSteps.cachedMap.get(DataStoreSteps.PRODUCT_KEY);
 		List<ProductVO> productPVOs = productDataMapperService.process(products);
 		ProductDataFilter filter = new ProductDataFilter(productPVOs, PriceLableType.SHOW_WAS_THEN_NOW,ProductSortBy.PRODUCT_PRICE_REDUCTION_DESC);
 		List<ProductVO> productVOsWithShowNowFilter = productDataFilterService.getProcductAfterFilter(filter);
-		DataStore.cachedMap.put(DataStore.FILTERED_PRODUCT_WITH_LABEL_WAS_NOW_KEY, productVOsWithShowNowFilter);
+		DataStoreSteps.cachedMap.put(DataStoreSteps.FILTERED_PRODUCT_WITH_LABEL_WAS_NOW_KEY, productVOsWithShowNowFilter);
 	}
 	
 	@When("filter on catalog data is ShowPercDscount and sort order is highest reducing first")
 	public void whenFilterOnCatalogDataIsShowPercDscountAndSortOrderIsHighestReducingFirst() throws NoAppropraiteDataFilterProvidedException {
 		
-		List<Product> products = (List<Product>) DataStore.cachedMap.get(DataStore.PRODUCT_KEY);
+		List<Product> products = (List<Product>) DataStoreSteps.cachedMap.get(DataStoreSteps.PRODUCT_KEY);
 		List<ProductVO> productPVOs = productDataMapperService.process(products);
 		ProductDataFilter filter = new ProductDataFilter(productPVOs, PriceLableType.SHOW_PER_DISCOUNT,ProductSortBy.PRODUCT_PRICE_REDUCTION_DESC);
 		List<ProductVO> productVOsWithShowNowFilter = productDataFilterService.getProcductAfterFilter(filter);
-		DataStore.cachedMap.put(DataStore.FILTERED_PRODUCT_WITH_LABEL_WAS_NOW_KEY, productVOsWithShowNowFilter);
+		DataStoreSteps.cachedMap.put(DataStoreSteps.FILTERED_PRODUCT_WITH_LABEL_WAS_NOW_KEY, productVOsWithShowNowFilter);
 	}
 
 
