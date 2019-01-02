@@ -10,6 +10,6 @@ public class LiveTestApp {
 	public static void main(String args[]) {
 
 		SpringApplicationBuilder builder = new SpringApplicationBuilder(LiveTestApp.class);
-        builder.headless(false).run(args);
+        builder.headless(false).run(args); 
 	}
 }
