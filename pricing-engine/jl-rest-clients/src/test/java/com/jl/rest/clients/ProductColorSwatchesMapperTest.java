@@ -3,21 +3,28 @@ package com.jl.rest.clients;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import com.jl.factory.ColorFactory;
+import com.jl.configs.RestClientApp;
 import com.jl.product.mapper.ProductColorSwatchesMapper;
 import com.jl.product.vo.ColorSwatchVO;
 import com.jl.product.vo.json.ColorSwatch;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = RestClientApp.class)
 public class ProductColorSwatchesMapperTest {
 
-	ProductColorSwatchesMapper productColorSwatchesMapper = new ProductColorSwatchesMapper();
+	/*@Autowired
+	ColorService colorBean;*/
 
-	public static final Hashtable<String, String> colorCache = new Hashtable<String, String>();
+	@Autowired
+	ProductColorSwatchesMapper productColorSwatchesMapper;
 
 	@Test
 	public void testColorSwatesCopy() {
@@ -31,18 +38,15 @@ public class ProductColorSwatchesMapperTest {
 			System.out.println(colorSwatchVO.toString());
 			assertEquals("#800080", colorSwatchVO.getRgbColor().toString());
 		}
-		
 
 	}
-	
-	@Test
+
+/*	@Test
 	public void testValueProduction() {
-		String rgbValue = ColorFactory.getInstance().getRGBValueForColor("purple");
+		String rgbValue = colorBean.getRGBValueForColor("purple");
 		assertEquals("rgb{128,0,128}", rgbValue);
-		String hexValue = ColorFactory.getInstance().getHexString("purple");
+		String hexValue = colorBean.getHexValueForColor("purple");
 		assertEquals("#800080", hexValue);
-	}
-		
-	
+	}*/
 
 }

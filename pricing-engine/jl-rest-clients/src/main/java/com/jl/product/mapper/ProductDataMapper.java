@@ -3,6 +3,7 @@ package com.jl.product.mapper;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jl.product.exception.InvalidProductException;
@@ -13,6 +14,9 @@ import com.jl.product.vo.json.Product;
 
 @Service
 public class ProductDataMapper extends BaseMapper {
+	
+	@Autowired ProductPriceMapper priceMapper ;
+	@Autowired ProductColorSwatchesMapper mapper ;
 
 	public List<ProductVO> process(List<Product> products) {
 
@@ -22,11 +26,11 @@ public class ProductDataMapper extends BaseMapper {
 			ProductVO targetProductVO;
 			try {
 				targetProductVO = copyProductAttributes(sourceProduct);
-				ProductPriceMapper priceMapper = new ProductPriceMapper();
+				//ProductPriceMapper priceMapper = new ProductPriceMapper();
 				PriceVO proiductPrice = priceMapper.process(sourceProduct.getPrice());
 				targetProductVO.setPrice(proiductPrice);
 
-				ProductColorSwatchesMapper mapper = new ProductColorSwatchesMapper();
+				//ProductColorSwatchesMapper mapper = new ProductColorSwatchesMapper();
 				List<ColorSwatchVO> colorSwatchVOs = mapper.process(sourceProduct.getColorSwatches());
 				targetProductVO.setColorSwatches(colorSwatchVOs);
 

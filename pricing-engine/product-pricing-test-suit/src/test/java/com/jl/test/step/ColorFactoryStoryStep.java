@@ -6,24 +6,26 @@ import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Named;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.jl.factory.ColorFactory;
+import com.jl.product.service.ColorService;
 
 @Component
 public class ColorFactoryStoryStep {
 	
-	ColorFactory factory = ColorFactory.getInstance();
+	@Autowired
+	ColorService colorService;
 
 	@Given("a Color factory exists")
 	public void givenAColorFactoryExists() {
-		factory.getInstance();
+		assertTrue(colorService != null); 
 	}
 
 	@When("a color name is feed to factory with name $colorName")
 	public void whenAColorNameIsFeedToFactoryWithNamePurple(@Named("colorName") String colorName) {
-		String hexValueforColor = factory.getInstance().getHexString(colorName);
-		String rgbValueforColor = factory.getInstance().getRGBValueForColor(colorName);
+		String hexValueforColor = colorService.getHexValueForColor(colorName);
+		String rgbValueforColor = colorService.getRGBValueForColor(colorName);
 		
 		DataStoreSteps.cachedMap.put("hexValueforColor", hexValueforColor);
 		DataStoreSteps.cachedMap.put("rgbValueforColor", rgbValueforColor);

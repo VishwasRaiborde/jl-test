@@ -1,19 +1,41 @@
-package com.jl.factory;
+package com.jl.app.cache;
 
-import java.awt.Color;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
-
-import org.apache.commons.lang3.StringUtils;
 
 import com.jl.product.vo.RGB;
 
-public class ColorFactory {
+public class AppCache {
 
-	private static Map<String, RGB> colorMap = new HashMap<String, RGB>(256);
-	private static ColorFactory colorFactory;
+	public static final String REST_URL_PRODUCTS_CATALOGUE_KEY = "rest.url";
 
-	static {
+	public static Map<String, RGB> colorMap = new Hashtable<String, RGB>();
+	public static Map<String, String> envPropertyMap = new HashMap<String, String>();
+
+	private AppCache() {
+	}
+
+	public static void clearEnvConfigs() {
+		envPropertyMap.clear();
+	}
+
+	public static void addEnvProperty(String propertyKey, String propertyValue) {
+		envPropertyMap.put(propertyKey, propertyValue);
+	}
+
+	public static String getEnvProperty(String propertyKey) {
+		return envPropertyMap.get(propertyKey);
+	}
+
+	public static Map<String, String> loadEnvProps() {
+		AppCache.addEnvProperty(AppCache.REST_URL_PRODUCTS_CATALOGUE_KEY,"https://jl-nonprod-syst.apigee.net/v1/categories/600001506/products?key=2ALHCAAs6ikGRBoy6eTHA58RaG097Fma");
+		return AppCache.envPropertyMap;
+	}
+
+	public static Map<String, RGB> loadColorCache() {
+
+		colorMap = new HashMap<String, RGB>(256);
 		colorMap.put("black", new RGB(0, 0, 0));
 		colorMap.put("darkolivegreen", new RGB(85, 47, 107));
 		colorMap.put("cornsilk", new RGB(255, 220, 248));
@@ -162,54 +184,8 @@ public class ColorFactory {
 		colorMap.put("green", new RGB(0, 0, 128));
 		colorMap.put("khaki", new RGB(240, 140, 230));
 
-	}
-
-	private ColorFactory() {
+		return colorMap;
 
 	}
 
-	@SuppressWarnings("unchecked")
-	public Map<String, RGB> addColor(String colorName, RGB rgb) {
-		return (Map<String, RGB>) colorMap.put(colorName, rgb);
-	}
-
-	public String getRGBValueForColor(String colorName) {
-		colorName = colorName.toLowerCase();
-		if (StringUtils.isNotBlank(colorName) && colorMap.containsKey(colorName)) {
-			RGB rgbColor = colorMap.get(colorName.toLowerCase());
-			return rgbColor.getRGB();
-		} else {
-			return "rgb{not parsable color " + colorName + "}";
-		}
-
-	}
-
-	public String getHexString(String colorName) throws NullPointerException {
-		
-		if (StringUtils.isBlank(colorName)) {
-			return "";
-		}
-		if (colorMap.containsKey(colorName.toLowerCase())) {
-
-			RGB rgbColor = colorMap.get(colorName.toLowerCase());
-			Color colour = new Color(rgbColor.getRed(), rgbColor.getGreen(), rgbColor.getBlue());
-
-			String hexColour = Integer.toHexString(colour.getRGB() & 0xffffff);
-			if (hexColour.length() < 6) {
-				hexColour = "000000".substring(0, 6 - hexColour.length()) + hexColour;
-			}
-
-			return "#" + hexColour;
-		}
-		return "hex{not parsable hex for color " + colorName + "}";
-	}
-
-	public static ColorFactory getInstance() {
-		if (colorFactory == null) {
-			colorFactory = new ColorFactory();
-			return colorFactory;
-		} else {
-			return colorFactory;
-		}
-	}
 }

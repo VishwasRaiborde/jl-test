@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.jl.configs.EnvironmetPropertiesCache;
+import com.jl.app.cache.AppCache;
 import com.jl.configs.RestClientApp;
 import com.jl.product.clients.rest.ProductCatalogueClient;
 import com.jl.product.exception.ClientCommunicationException;
@@ -45,8 +45,8 @@ public class ProductDataFilterServiceTest {
 
 	@Before
 	public void before() {
-		EnvironmetPropertiesCache.clearAllConfigs();
-		EnvironmetPropertiesCache.addProperty(EnvironmetPropertiesCache.REST_URL_PRODUCTS_CATALOGUE,VALID_REST_URL_PRODUCTS_CATALOGUE);
+		AppCache.clearEnvConfigs();
+		AppCache.addEnvProperty(AppCache.REST_URL_PRODUCTS_CATALOGUE_KEY,VALID_REST_URL_PRODUCTS_CATALOGUE);
 	}
 
 	@Test(expected=NoAppropraiteDataFilterProvidedException.class)

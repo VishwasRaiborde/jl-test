@@ -3,17 +3,19 @@ package com.jl.product.mapper;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.jl.factory.ColorFactory;
+import com.jl.product.service.ColorService;
 import com.jl.product.vo.ColorSwatchVO;
 import com.jl.product.vo.json.ColorSwatch;
 
 @Service
 public class ProductColorSwatchesMapper extends BaseMapper {
 
-
-
+	@Autowired
+	ColorService colorService ;
+	
 	public List<ColorSwatchVO> process(List<ColorSwatch> colorSwatchVOs) {
 		return copyColorSwatchAttributes(colorSwatchVOs);
 	}
@@ -31,12 +33,10 @@ public class ProductColorSwatchesMapper extends BaseMapper {
 	}
 
 	public String getRGBValueOfColor(String basicColorName) {
-		ColorFactory factory  = ColorFactory.getInstance();
-		return 	factory.getRGBValueForColor(basicColorName);
+		return 	colorService.getRGBValueForColor(basicColorName);
 	}
 	public String getHexValueOfColor(String basicColorName) {
-		ColorFactory factory  = ColorFactory.getInstance();
-		return 	factory.getHexString(basicColorName);
+		return 	colorService.getHexValueForColor(basicColorName);
 	}
 
 	@Override

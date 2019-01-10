@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import com.jl.configs.EnvironmetPropertiesCache;
+import com.jl.app.cache.AppCache;
 import com.jl.product.exception.ClientCommunicationException;
 import com.jl.product.exception.NoDataFoundException;
 import com.jl.product.response.ResponseStatus.ClientResponseStatus;
@@ -30,7 +30,7 @@ public class ProductCatalogueClient {
 		restResponse.setResponseCode(ClientResponseStatus.RESQUEST_PREPARED_AND_UNFULFILLED);
 
 		try {
-			productCatalogueAsResponse = restTemplate.getForObject(EnvironmetPropertiesCache.getProperty(EnvironmetPropertiesCache.REST_URL_PRODUCTS_CATALOGUE),	ProductCatalogue.class);
+			productCatalogueAsResponse = restTemplate.getForObject(AppCache.getEnvProperty(AppCache.REST_URL_PRODUCTS_CATALOGUE_KEY),	ProductCatalogue.class);
 			if (productCatalogueAsResponse != null) {
 				
 				restResponse.setResponse(productCatalogueAsResponse);

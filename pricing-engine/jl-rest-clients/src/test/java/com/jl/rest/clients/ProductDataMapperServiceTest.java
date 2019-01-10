@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.jl.configs.EnvironmetPropertiesCache;
+import com.jl.app.cache.AppCache;
 import com.jl.configs.RestClientApp;
 import com.jl.product.clients.rest.ProductCatalogueClient;
 import com.jl.product.exception.ClientCommunicationException;
@@ -39,8 +39,8 @@ public class ProductDataMapperServiceTest {
 
 	@Before
 	public void before() {
-		EnvironmetPropertiesCache.clearAllConfigs();
-		EnvironmetPropertiesCache.addProperty(EnvironmetPropertiesCache.REST_URL_PRODUCTS_CATALOGUE,VALID_REST_URL_PRODUCTS_CATALOGUE);
+		AppCache.clearEnvConfigs();
+		AppCache.addEnvProperty(AppCache.REST_URL_PRODUCTS_CATALOGUE_KEY,VALID_REST_URL_PRODUCTS_CATALOGUE);
 	}
 
 	@Test
@@ -48,9 +48,9 @@ public class ProductDataMapperServiceTest {
 		RestResponse<ProductCatalogue> restResponse = productCatalogueClient.getProducts();
 		assertTrue(restResponse.isSuccessfull());
 		List<ProductVO> productPVOs = productDataMapperService.process(restResponse.getResponse().getProducts());
-		/*for (ProductVO product : productPVOs) {
+		for (ProductVO product : productPVOs) {
 			System.out.println(product.toString());
-		}*/ 
+		}
 		assertNotNull(productPVOs);
 
 	}
@@ -102,9 +102,9 @@ public class ProductDataMapperServiceTest {
 		RestResponse<ProductCatalogue> restResponse = productCatalogueClient.getProducts();
 		List<ProductVO> products = productDataMapperService.process(restResponse.getResponse().getProducts());
 
-		/*for (ProductVO product : products) {
+		for (ProductVO product : products) {
 			System.out.println("Products " + product.toString());
-		}*/
+		}
 		
 		assertNotNull(products);
 

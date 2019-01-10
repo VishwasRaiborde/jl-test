@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.jl.configs.EnvironmetPropertiesCache;
+import com.jl.app.cache.AppCache;
 import com.jl.configs.RestClientApp;
 import com.jl.product.clients.rest.ProductCatalogueClient;
 import com.jl.product.exception.ClientCommunicationException;
@@ -33,24 +33,24 @@ public class ProductCatalogueClientTest {
 	@Test
 	public void testProductProductLoadFail() throws NoDataFoundException, ClientCommunicationException {
 
-		EnvironmetPropertiesCache.clearAllConfigs();
-		EnvironmetPropertiesCache.addProperty(EnvironmetPropertiesCache.REST_URL_PRODUCTS_CATALOGUE, VALID_REST_URL_PRODUCTS_CATALOGUE);
+		AppCache.clearEnvConfigs();
+		AppCache.addEnvProperty(AppCache.REST_URL_PRODUCTS_CATALOGUE_KEY, VALID_REST_URL_PRODUCTS_CATALOGUE);
 		RestResponse<ProductCatalogue> restResponse = productCatalogueClient.getProducts();
 		assertTrue(restResponse.isSuccessfull());
 	}
 	
 	@Test(expected=ClientCommunicationException.class)
 	public void testProductProductSuccessfull() throws NoDataFoundException, ClientCommunicationException {
-		EnvironmetPropertiesCache.clearAllConfigs();
-		EnvironmetPropertiesCache.addProperty(EnvironmetPropertiesCache.REST_URL_PRODUCTS_CATALOGUE, INVALID_REST_URL_PRODUCTS_CATALOGUE);
+		AppCache.clearEnvConfigs();
+		AppCache.addEnvProperty(AppCache.REST_URL_PRODUCTS_CATALOGUE_KEY, INVALID_REST_URL_PRODUCTS_CATALOGUE);
 		RestResponse<ProductCatalogue> restResponse = productCatalogueClient.getProducts();
 		assertTrue(restResponse.isSuccessfull());
 	}
 	
 	@Test
 	public void testProductExtractedSucessfully() throws NoDataFoundException, ClientCommunicationException {
-		EnvironmetPropertiesCache.clearAllConfigs();
-		EnvironmetPropertiesCache.addProperty(EnvironmetPropertiesCache.REST_URL_PRODUCTS_CATALOGUE, VALID_REST_URL_PRODUCTS_CATALOGUE);
+		AppCache.clearEnvConfigs();
+		AppCache.addEnvProperty(AppCache.REST_URL_PRODUCTS_CATALOGUE_KEY, VALID_REST_URL_PRODUCTS_CATALOGUE);
 		RestResponse<ProductCatalogue> restResponse = productCatalogueClient.getProducts();
 		
 		assertTrue(restResponse.isSuccessfull());
