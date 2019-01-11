@@ -1,7 +1,6 @@
 package com.jl.app.cache;
 
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
 
 import com.jl.product.vo.RGB;
@@ -10,10 +9,18 @@ public class AppCache {
 
 	public static final String REST_URL_PRODUCTS_CATALOGUE_KEY = "rest.url";
 
-	public static Map<String, RGB> colorMap = new Hashtable<String, RGB>();
-	public static Map<String, String> envPropertyMap = new HashMap<String, String>();
+	protected static final Map<String, RGB> colorMap = new HashMap<String, RGB>();
+	protected static final Map<String, String> envPropertyMap = new HashMap<String, String>();
 
 	private AppCache() {
+	}
+
+	public static Map<String, RGB> getColormap() {
+		return colorMap;
+	}
+
+	public static Map<String, String> getEnvpropertymap() {
+		return envPropertyMap;
 	}
 
 	public static void clearEnvConfigs() {
@@ -35,7 +42,6 @@ public class AppCache {
 
 	public static Map<String, RGB> loadColorCache() {
 
-		colorMap = new HashMap<String, RGB>(256);
 		colorMap.put("black", new RGB(0, 0, 0));
 		colorMap.put("darkolivegreen", new RGB(85, 47, 107));
 		colorMap.put("cornsilk", new RGB(255, 220, 248));

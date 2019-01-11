@@ -76,7 +76,7 @@ public class ProductCatalogueUpAndRuniningStep {
 	public void thenAnArrayOfProductShouldBeProvidedAsPerTheGivenCondition() {
 		List<ProductVO> filteredProductVOs = (List<ProductVO>) DataStoreSteps.cachedMap.get(DataStoreSteps.FILTERED_PRODUCT_WITH_LABEL_WAS_NOW_KEY);
 		for (ProductVO productVO : filteredProductVOs) {
-			System.out.println("ShowWasNow Filter - " + productVO.getNowPrice());
+			System.out.println("Filtered Records - " + productVO.getNowPrice());
 		}
 	}
 	

@@ -32,7 +32,7 @@ public class ColorService {
 
 	}
 
-	public String getHexValueForColor(String colorName) throws NullPointerException {
+	public String getHexValueForColor(String colorName)  {
 		
 		if (StringUtils.isBlank(colorName)) {
 			return "";

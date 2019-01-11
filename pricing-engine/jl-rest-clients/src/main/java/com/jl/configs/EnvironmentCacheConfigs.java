@@ -19,13 +19,13 @@ public class EnvironmentCacheConfigs {
 	@Bean
 	public Map<String,String> envProperties() {
 		AppCache.loadEnvProps();
-		return AppCache.envPropertyMap;
+		return AppCache.getEnvpropertymap();
 	}
 	
 	@Bean
 	public Map<String,RGB> colorMap() {
 		AppCache.loadColorCache();
-		return AppCache.colorMap;
+		return AppCache.getColormap();
 	}
 
 }

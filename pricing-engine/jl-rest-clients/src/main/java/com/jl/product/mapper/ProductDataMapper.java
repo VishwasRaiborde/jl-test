@@ -3,9 +3,12 @@ package com.jl.product.mapper;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.jl.product.clients.rest.ProductCatalogueClient;
 import com.jl.product.exception.InvalidProductException;
 import com.jl.product.vo.ColorSwatchVO;
 import com.jl.product.vo.PriceVO;
@@ -14,6 +17,8 @@ import com.jl.product.vo.json.Product;
 
 @Service
 public class ProductDataMapper extends BaseMapper {
+	
+	private static final Logger log = LoggerFactory.getLogger(ProductDataMapper.class);
 	
 	@Autowired ProductPriceMapper priceMapper ;
 	@Autowired ProductColorSwatchesMapper mapper ;
@@ -26,18 +31,18 @@ public class ProductDataMapper extends BaseMapper {
 			ProductVO targetProductVO;
 			try {
 				targetProductVO = copyProductAttributes(sourceProduct);
-				//ProductPriceMapper priceMapper = new ProductPriceMapper();
 				PriceVO proiductPrice = priceMapper.process(sourceProduct.getPrice());
 				targetProductVO.setPrice(proiductPrice);
 
-				//ProductColorSwatchesMapper mapper = new ProductColorSwatchesMapper();
 				List<ColorSwatchVO> colorSwatchVOs = mapper.process(sourceProduct.getColorSwatches());
 				targetProductVO.setColorSwatches(colorSwatchVOs);
 
 				productPVOsList.add(targetProductVO);
 				
 			} catch (InvalidProductException e) {
-				e.printStackTrace();
+				if (log.isDebugEnabled()) {
+					log.debug("Required Fileds for Presentation missing at source!",e.getMessage());
+				}
 			}
 
 		}

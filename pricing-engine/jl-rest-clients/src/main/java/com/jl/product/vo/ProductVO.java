@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jl.product.vo.json.ColorSwatch;
-
 public class ProductVO implements Serializable {
 
 	/**

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jl.product.clients.rest.ProductCatalogueClient;
 import com.jl.product.exception.ClientCommunicationException;
 import com.jl.product.exception.NoAppropraiteDataFilterProvidedException;
 import com.jl.product.exception.NoDataFoundException;
@@ -46,17 +45,17 @@ public class ProductPriceController {
 			if(log.isDebugEnabled()) {
 				log.debug(e.getMessage());
 			}
-			return new ResponseEntity(new ArrayList(), HttpStatus.METHOD_FAILURE);
+			return new ResponseEntity(new ArrayList(), HttpStatus.NO_CONTENT);
 		} catch (ClientCommunicationException e) {
 			if(log.isDebugEnabled()) {
 				log.debug(e.getMessage());
 			}
-			return new ResponseEntity(new ArrayList(), HttpStatus.METHOD_FAILURE);
+			return new ResponseEntity(new ArrayList(), HttpStatus.NO_CONTENT);
 		} catch (NoAppropraiteDataFilterProvidedException e) {
 			if(log.isDebugEnabled()) {
 				log.debug(e.getMessage());
 			}
-			return new ResponseEntity(new ArrayList(), HttpStatus.METHOD_FAILURE);
+			return new ResponseEntity(new ArrayList(), HttpStatus.NO_CONTENT);
 		}
 
 	}
@@ -71,7 +70,7 @@ public class ProductPriceController {
 			if(log.isDebugEnabled()) {
 				log.debug(e.getMessage());
 			}
-			return new ResponseEntity(new ArrayList(), HttpStatus.METHOD_FAILURE);
+			return new ResponseEntity(new ArrayList(), HttpStatus.NO_CONTENT);
 		}
 	}
 
