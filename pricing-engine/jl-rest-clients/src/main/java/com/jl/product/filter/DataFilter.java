@@ -1,4 +1,4 @@
-package com.jl.product.filer;
+package com.jl.product.filter;
 
 public abstract class DataFilter<T> {
 	

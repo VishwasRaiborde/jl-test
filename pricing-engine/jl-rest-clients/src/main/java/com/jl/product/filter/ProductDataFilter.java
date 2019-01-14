@@ -1,4 +1,4 @@
-package com.jl.product.filer;
+package com.jl.product.filter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,8 +41,7 @@ public class ProductDataFilter extends DataFilter<ProductVO> {
 		this.productSortBy = productSortBy;
 	}
 
-	public ProductDataFilter() {
-	}
+
 
 	public Object filter() {
 
@@ -55,15 +54,18 @@ public class ProductDataFilter extends DataFilter<ProductVO> {
 
 				switch (labelType) {
 				case SHOW_WAS_NOW: {
-					decorateProductForPriceWithWasAndNowAttribute(filteredListByCondition, productVO);
+					ProductVO productVowithDecoratedLabel = decorateProductForPriceWithWasAndNowAttribute(productVO);
+					filteredListByCondition.add(productVowithDecoratedLabel);
 					break;
 				}
 				case SHOW_WAS_THEN_NOW: {
-					decorateProductForPriceWitWasThenAndNowAttribute(filteredListByCondition, productVO);
+					ProductVO productVowithDecoratedLabel = decorateProductForPriceWitWasThenAndNowAttribute(productVO);
+					filteredListByCondition.add(productVowithDecoratedLabel);
 					break;
 				}
 				case SHOW_PER_DISCOUNT: {
-					decorateProductForPriceDiscount(filteredListByCondition, productVO);
+					ProductVO productVowithDecoratedLabel = decorateProductForPriceDiscount(productVO);
+					filteredListByCondition.add(productVowithDecoratedLabel);
 					break;
 				}
 				}
@@ -76,23 +78,10 @@ public class ProductDataFilter extends DataFilter<ProductVO> {
 
 
 
-	class ProductSPriceComparatorDESC implements Comparator<ProductVO> {
-		public int compare(ProductVO o1, ProductVO o2) {
 
-			if ((o1.getReducedPrice()) == (o2.getReducedPrice())) {
-				return 0;
-			} else if ((o1.getReducedPrice()) < (o2.getReducedPrice())) {
-				return 1;
-			} else {
-				return -1;
-			}
-		}
-	}
 
-	private void decorateProductForPriceWithWasAndNowAttribute(List<ProductVO> filteredListByCondition,
-			ProductVO productVO) {
+	private ProductVO decorateProductForPriceWithWasAndNowAttribute(ProductVO productVO) {
 
-		// some smart way for null check , null check before use ,
 		Double wasPrice = productVO.getPrice().getWas();
 		Object nowPrice = productVO.getPrice().getNow();
 		String priceLabel = productVO.getPrice().getCurrency();
@@ -111,11 +100,11 @@ public class ProductDataFilter extends DataFilter<ProductVO> {
 		showWasNow.append(CLOSING_BRACES);
 
 		productVO.setNowPrice(showWasNow.toString());
-		filteredListByCondition.add(productVO);
+		
+		return productVO;
 	}
 
-	private void decorateProductForPriceWitWasThenAndNowAttribute(List<ProductVO> filteredListByCondition,
-			ProductVO productVO) {
+	private ProductVO decorateProductForPriceWitWasThenAndNowAttribute(ProductVO productVO) {
 
 		Double wasPrice = productVO.getPrice().getWas();
 		Double then1Price = productVO.getPrice().getThen1();
@@ -155,10 +144,10 @@ public class ProductDataFilter extends DataFilter<ProductVO> {
 		showWasThenNow.append(CLOSING_BRACES);
 
 		productVO.setNowPrice(showWasThenNow.toString());
-		filteredListByCondition.add(productVO);
+		return productVO;
 	}
 
-	private void decorateProductForPriceDiscount(List<ProductVO> filteredListByCondition, ProductVO productVO) {
+	private ProductVO decorateProductForPriceDiscount(ProductVO productVO) {
 		
 		if (productVO.getPrice() != null) {
 			
@@ -173,8 +162,9 @@ public class ProductDataFilter extends DataFilter<ProductVO> {
 			showDiscount.append(priceLabel != null ? priceLabel : "");
 			
 			productVO.setNowPrice(showDiscount.toString());
-			filteredListByCondition.add(productVO);
+			
 		}
+		return productVO;
 	}
 
 	private double calculateDiscount(PriceVO price) {
@@ -243,6 +233,19 @@ public class ProductDataFilter extends DataFilter<ProductVO> {
 			break;
 		}
 
+		}
+	}
+	
+	class ProductSPriceComparatorDESC implements Comparator<ProductVO> {
+		public int compare(ProductVO o1, ProductVO o2) {
+
+			if ((o1.getReducedPrice()) == (o2.getReducedPrice())) {
+				return 0;
+			} else if ((o1.getReducedPrice()) < (o2.getReducedPrice())) {
+				return 1;
+			} else {
+				return -1;
+			}
 		}
 	}
 

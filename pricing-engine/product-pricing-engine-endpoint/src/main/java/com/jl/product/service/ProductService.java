@@ -5,12 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.jl.product.clients.rest.ProductCatalogueClient;
 import com.jl.product.exception.ClientCommunicationException;
 import com.jl.product.exception.NoAppropraiteDataFilterProvidedException;
 import com.jl.product.exception.NoDataFoundException;
-import com.jl.product.filer.ProductDataFilter;
-import com.jl.product.filer.ProductDataFilterService;
+import com.jl.product.filter.ProductDataFilter;
 import com.jl.product.mapper.ProductDataMapper;
 import com.jl.product.response.RestResponse;
 import com.jl.product.vo.ProductVO;
@@ -20,7 +18,7 @@ import com.jl.product.vo.json.ProductCatalogue;
 public class ProductService implements IProductService {
 
 	@Autowired
-	private ProductCatalogueClient productCatalogueClient;
+	private ProductCatalogueService productCatalogueClient;
 
 	@Autowired
 	ProductDataMapper productDataMapperService;

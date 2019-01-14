@@ -15,11 +15,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.jl.app.cache.AppCache;
 import com.jl.configs.RestClientApp;
-import com.jl.product.clients.rest.ProductCatalogueClient;
 import com.jl.product.exception.ClientCommunicationException;
 import com.jl.product.exception.NoDataFoundException;
 import com.jl.product.mapper.ProductDataMapper;
 import com.jl.product.response.RestResponse;
+import com.jl.product.service.ProductCatalogueService;
 import com.jl.product.vo.NowPriceRangeVO;
 import com.jl.product.vo.ProductVO;
 import com.jl.product.vo.json.Price;
@@ -32,7 +32,7 @@ public class ProductDataMapperServiceTest {
 	private final static String VALID_REST_URL_PRODUCTS_CATALOGUE = "https://jl-nonprod-syst.apigee.net/v1/categories/600001506/products?key=2ALHCAAs6ikGRBoy6eTHA58RaG097Fma";
 
 	@Autowired
-	private ProductCatalogueClient productCatalogueClient;
+	private ProductCatalogueService productCatalogueClient;
 
 	@Autowired
 	ProductDataMapper productDataMapperService;

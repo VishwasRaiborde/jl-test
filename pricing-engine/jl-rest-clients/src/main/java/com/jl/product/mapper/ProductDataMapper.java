@@ -8,8 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.jl.product.clients.rest.ProductCatalogueClient;
 import com.jl.product.exception.InvalidProductException;
+import com.jl.product.service.ProductCatalogueService;
 import com.jl.product.vo.ColorSwatchVO;
 import com.jl.product.vo.PriceVO;
 import com.jl.product.vo.ProductVO;
@@ -21,7 +21,7 @@ public class ProductDataMapper extends BaseMapper {
 	private static final Logger log = LoggerFactory.getLogger(ProductDataMapper.class);
 	
 	@Autowired ProductPriceMapper priceMapper ;
-	@Autowired ProductColorSwatchesMapper mapper ;
+	@Autowired ProductColorSwatchesMapper productColorSwatchesMapper ;
 
 	public List<ProductVO> process(List<Product> products) {
 
@@ -31,10 +31,11 @@ public class ProductDataMapper extends BaseMapper {
 			ProductVO targetProductVO;
 			try {
 				targetProductVO = copyProductAttributes(sourceProduct);
+				
 				PriceVO proiductPrice = priceMapper.process(sourceProduct.getPrice());
 				targetProductVO.setPrice(proiductPrice);
 
-				List<ColorSwatchVO> colorSwatchVOs = mapper.process(sourceProduct.getColorSwatches());
+				List<ColorSwatchVO> colorSwatchVOs = productColorSwatchesMapper.process(sourceProduct.getColorSwatches());
 				targetProductVO.setColorSwatches(colorSwatchVOs);
 
 				productPVOsList.add(targetProductVO);

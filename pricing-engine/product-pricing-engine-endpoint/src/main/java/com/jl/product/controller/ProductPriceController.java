@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jl.product.exception.ClientCommunicationException;
 import com.jl.product.exception.NoAppropraiteDataFilterProvidedException;
 import com.jl.product.exception.NoDataFoundException;
-import com.jl.product.filer.ProductDataFilter;
-import com.jl.product.filer.ProductDataFilter.PriceLableType;
-import com.jl.product.filer.ProductDataFilter.ProductSortBy;
+import com.jl.product.filter.ProductDataFilter;
+import com.jl.product.filter.ProductDataFilter.PriceLableType;
+import com.jl.product.filter.ProductDataFilter.ProductSortBy;
 import com.jl.product.service.IProductService;
 import com.jl.product.vo.ProductVO;
 
@@ -38,27 +38,25 @@ public class ProductPriceController {
 			List<ProductVO> productPVOs = productService.getProducts();
 			ProductDataFilter filter = new ProductDataFilter(productPVOs, labelType, sortBy);
 			List<ProductVO> listOfproducts = productService.getFilteredProducts(filter);
-			
+
 			return new ResponseEntity<List<ProductVO>>(listOfproducts, HttpStatus.OK);
 		} catch (NoDataFoundException e) {
-			if(log.isDebugEnabled()) {
+			if (log.isDebugEnabled()) {
 				log.debug(e.getMessage());
 			}
 			return new ResponseEntity(new ArrayList(), HttpStatus.NO_CONTENT);
 		} catch (ClientCommunicationException e) {
-			if(log.isDebugEnabled()) {
+			if (log.isDebugEnabled()) {
 				log.debug(e.getMessage());
 			}
 			return new ResponseEntity(new ArrayList(), HttpStatus.NO_CONTENT);
 		} catch (NoAppropraiteDataFilterProvidedException e) {
-			if(log.isDebugEnabled()) {
+			if (log.isDebugEnabled()) {
 				log.debug(e.getMessage());
 			}
 			return new ResponseEntity(new ArrayList(), HttpStatus.NO_CONTENT);
 		}
 
 	}
-
-
 
 }

@@ -53,17 +53,17 @@ public class ProductPriceMapper extends BaseMapper {
 
 	}
 	
-	public Object processComplexType(Object t) {
-		if (t instanceof String) {
-			return processComplexType((String) t);
-		} else if (t instanceof Double) {
-			return processComplexType((Double) t);
-		} else if (t instanceof Integer) {
-			return processComplexType((Integer) t);
-		} else if (t instanceof Map) {
-			return processComplexType((Map<String, String>)t);
+	public Object processComplexType(Object dataField) {
+		if (dataField instanceof String) {
+			return processComplexType((String) dataField);
+		} else if (dataField instanceof Double) {
+			return processComplexType((Double) dataField);
+		} else if (dataField instanceof Integer) {
+			return processComplexType((Integer) dataField);
+		} else if (dataField instanceof Map) {
+			return processComplexType((Map<String,String>)dataField);
 		}
-		return t;
+		return dataField;
 	}
 
 }

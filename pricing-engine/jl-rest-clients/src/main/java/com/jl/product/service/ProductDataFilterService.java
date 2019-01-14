@@ -1,10 +1,11 @@
-package com.jl.product.filer;
+package com.jl.product.service;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import com.jl.product.exception.NoAppropraiteDataFilterProvidedException;
+import com.jl.product.filter.DataFilter;
 import com.jl.product.vo.ProductVO;
 
 @Service

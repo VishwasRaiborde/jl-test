@@ -14,16 +14,16 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.jl.app.cache.AppCache;
 import com.jl.configs.RestClientApp;
-import com.jl.product.clients.rest.ProductCatalogueClient;
 import com.jl.product.exception.ClientCommunicationException;
 import com.jl.product.exception.NoAppropraiteDataFilterProvidedException;
 import com.jl.product.exception.NoDataFoundException;
-import com.jl.product.filer.ProductDataFilter;
-import com.jl.product.filer.ProductDataFilter.PriceLableType;
-import com.jl.product.filer.ProductDataFilter.ProductSortBy;
-import com.jl.product.filer.ProductDataFilterService;
+import com.jl.product.filter.ProductDataFilter;
+import com.jl.product.filter.ProductDataFilter.PriceLableType;
+import com.jl.product.filter.ProductDataFilter.ProductSortBy;
 import com.jl.product.mapper.ProductDataMapper;
 import com.jl.product.response.RestResponse;
+import com.jl.product.service.ProductCatalogueService;
+import com.jl.product.service.ProductDataFilterService;
 import com.jl.product.vo.ProductVO;
 import com.jl.product.vo.json.ProductCatalogue;
 
@@ -33,7 +33,7 @@ public class ProductDataFilterServiceTest {
 
 
 	@Autowired
-	private ProductCatalogueClient productCatalogueClient;
+	private ProductCatalogueService productCatalogueClient;
 
 	@Autowired
 	ProductDataMapper productDataMapperService;

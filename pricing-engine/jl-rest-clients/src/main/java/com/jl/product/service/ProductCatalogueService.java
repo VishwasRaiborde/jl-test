@@ -1,4 +1,4 @@
-package com.jl.product.clients.rest;
+package com.jl.product.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,11 +17,11 @@ import com.jl.product.response.RestResponse;
 import com.jl.product.vo.json.ProductCatalogue;
 
 @Service
-public class ProductCatalogueClient {
+public class ProductCatalogueService {
 
 	@Autowired
 	RestTemplate restTemplate;
-	private static final Logger log = LoggerFactory.getLogger(ProductCatalogueClient.class);
+	private static final Logger log = LoggerFactory.getLogger(ProductCatalogueService.class);
 
 	public RestResponse<ProductCatalogue> getProducts() throws NoDataFoundException, ClientCommunicationException {
 

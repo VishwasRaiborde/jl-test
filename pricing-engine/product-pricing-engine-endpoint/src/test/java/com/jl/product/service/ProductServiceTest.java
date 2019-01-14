@@ -14,9 +14,9 @@ import com.jl.configs.RestClientApp;
 import com.jl.product.exception.ClientCommunicationException;
 import com.jl.product.exception.NoAppropraiteDataFilterProvidedException;
 import com.jl.product.exception.NoDataFoundException;
-import com.jl.product.filer.ProductDataFilter;
-import com.jl.product.filer.ProductDataFilter.PriceLableType;
-import com.jl.product.filer.ProductDataFilter.ProductSortBy;
+import com.jl.product.filter.ProductDataFilter;
+import com.jl.product.filter.ProductDataFilter.PriceLableType;
+import com.jl.product.filter.ProductDataFilter.ProductSortBy;
 import com.jl.product.vo.ProductVO;
 
 @RunWith(SpringRunner.class)
