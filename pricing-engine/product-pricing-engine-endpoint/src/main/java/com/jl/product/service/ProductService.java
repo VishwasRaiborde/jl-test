@@ -37,11 +37,9 @@ public class ProductService implements IProductService {
 
 	public List<ProductVO> getFilteredProducts(ProductDataFilter filter)
 			throws NoAppropraiteDataFilterProvidedException {
-		
+
 		return productDataFilterService.applyProductfilter(filter);
 
 	}
-	
-	
 
 }

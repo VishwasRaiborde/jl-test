@@ -34,12 +34,10 @@ public class ProductPriceController {
 	public ResponseEntity<List<ProductVO>> priceReducdedProducts(@PathVariable("labelType") PriceLableType labelType,
 			@PathVariable("sortOrder") ProductSortBy sortBy) {
 
-		List<ProductVO> productPVOs;
-		List<ProductVO> listOfproducts;
 		try {
-			productPVOs = productService.getProducts();
+			List<ProductVO> productPVOs = productService.getProducts();
 			ProductDataFilter filter = new ProductDataFilter(productPVOs, labelType, sortBy);
-			listOfproducts = productService.getFilteredProducts(filter);
+			List<ProductVO> listOfproducts = productService.getFilteredProducts(filter);
 			
 			return new ResponseEntity<List<ProductVO>>(listOfproducts, HttpStatus.OK);
 		} catch (NoDataFoundException e) {
