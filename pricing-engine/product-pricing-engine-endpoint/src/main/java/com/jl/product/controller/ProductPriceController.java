@@ -61,18 +61,6 @@ public class ProductPriceController {
 
 	}
 
-	@GetMapping(value = "/products/prices", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<List<ProductVO>> priceReducdedProducts1() {
-		List<ProductVO> response;
-		try {
-			response = productService.getProducts();
-			return new ResponseEntity<List<ProductVO>>(response, HttpStatus.OK);
-		} catch (NoDataFoundException | ClientCommunicationException e) {
-			if(log.isDebugEnabled()) {
-				log.debug(e.getMessage());
-			}
-			return new ResponseEntity(new ArrayList(), HttpStatus.NO_CONTENT);
-		}
-	}
+
 
 }
