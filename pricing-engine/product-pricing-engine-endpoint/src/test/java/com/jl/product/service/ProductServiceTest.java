@@ -36,7 +36,7 @@ public class ProductServiceTest {
 	public void testGetProducedsWithWithNullFilter()
 			throws NoAppropraiteDataFilterProvidedException, NoDataFoundException, ClientCommunicationException {
 
-		List<ProductVO> decoreatedProductVOs = productService.getProducedsWithWithFilter(null);
+		List<ProductVO> decoreatedProductVOs = productService.getFilteredProducts(null);
 		/*
 		 * for (ProductVO productVO : decoreatedProductVOs) {
 		 * System.out.println(productVO.toString()); }
@@ -49,7 +49,7 @@ public class ProductServiceTest {
 		List<ProductVO> productPVOs = productService.getProducts();
 		ProductDataFilter filter = new ProductDataFilter(productPVOs, PriceLableType.SHOW_WAS_THEN_NOW,
 				ProductSortBy.PRODUCT_PRICE_REDUCTION_DESC);
-		List<ProductVO> decoreatedProductVOs = productService.getProducedsWithWithFilter(filter);
+		List<ProductVO> decoreatedProductVOs = productService.getFilteredProducts(filter);
 		/*
 		 * for (ProductVO productVO : decoreatedProductVOs) {
 		 * System.out.println(productVO.toString()); }

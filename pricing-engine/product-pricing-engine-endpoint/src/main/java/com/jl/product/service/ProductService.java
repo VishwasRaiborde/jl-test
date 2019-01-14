@@ -35,13 +35,13 @@ public class ProductService implements IProductService {
 
 	}
 
-	public List<ProductVO> getProducedsWithWithFilter(ProductDataFilter filter)
-			throws NoAppropraiteDataFilterProvidedException, NoDataFoundException, ClientCommunicationException {
-
-		RestResponse<ProductCatalogue> restResponse = productCatalogueClient.getProducts();
-		productDataMapperService.process(restResponse.getResponse().getProducts());
-		return productDataFilterService.getProcductAfterFilter(filter);
+	public List<ProductVO> getFilteredProducts(ProductDataFilter filter)
+			throws NoAppropraiteDataFilterProvidedException {
+		
+		return productDataFilterService.applyProductfilter(filter);
 
 	}
+	
+	
 
 }

@@ -54,7 +54,7 @@ public class ProductDataFilterServiceTest {
 		
 		RestResponse<ProductCatalogue> restResponse = productCatalogueClient.getProducts();
 		assertTrue(restResponse.isSuccessfull());
-		List<ProductVO> vos = productDataFilterService.getProcductAfterFilter(null);
+		List<ProductVO> vos = productDataFilterService.applyProductfilter(null);
 		
 	/*	for(ProductVO productVO :vos) {
 			System.out.println(productVO.getPrice().toString());
@@ -71,7 +71,7 @@ public class ProductDataFilterServiceTest {
 		List<ProductVO> productPVOs = productDataMapperService.process(restResponse.getResponse().getProducts());
 		
 		ProductDataFilter filter = new ProductDataFilter(productPVOs,PriceLableType.SHOW_WAS_THEN_NOW,ProductSortBy.PRODUCT_PRICE_REDUCTION_DESC);
-		List<ProductVO> vos = productDataFilterService.getProcductAfterFilter(filter);
+		List<ProductVO> vos = productDataFilterService.applyProductfilter(filter);
 		
 /*		for(ProductVO productVO :vos) {
 			System.out.println(productVO.toString());

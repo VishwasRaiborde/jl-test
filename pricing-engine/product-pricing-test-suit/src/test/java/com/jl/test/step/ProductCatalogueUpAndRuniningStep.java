@@ -68,7 +68,7 @@ public class ProductCatalogueUpAndRuniningStep {
 		List<Product> products = (List<Product>) DataStoreSteps.cachedMap.get(DataStoreSteps.PRODUCT_KEY);
 		List<ProductVO> productPVOs = productDataMapperService.process(products);
 		ProductDataFilter filter = new ProductDataFilter(productPVOs, PriceLableType.SHOW_WAS_NOW,ProductSortBy.PRODUCT_PRICE_REDUCTION_DESC);
-		List<ProductVO> productVOsWithShowNowFilter = productDataFilterService.getProcductAfterFilter(filter);
+		List<ProductVO> productVOsWithShowNowFilter = productDataFilterService.applyProductfilter(filter);
 		DataStoreSteps.cachedMap.put(DataStoreSteps.FILTERED_PRODUCT_WITH_LABEL_WAS_NOW_KEY, productVOsWithShowNowFilter);
 	}
 
@@ -87,7 +87,7 @@ public class ProductCatalogueUpAndRuniningStep {
 		List<Product> products = (List<Product>) DataStoreSteps.cachedMap.get(DataStoreSteps.PRODUCT_KEY);
 		List<ProductVO> productPVOs = productDataMapperService.process(products);
 		ProductDataFilter filter = new ProductDataFilter(productPVOs, PriceLableType.SHOW_WAS_THEN_NOW,ProductSortBy.PRODUCT_PRICE_REDUCTION_DESC);
-		List<ProductVO> productVOsWithShowNowFilter = productDataFilterService.getProcductAfterFilter(filter);
+		List<ProductVO> productVOsWithShowNowFilter = productDataFilterService.applyProductfilter(filter);
 		DataStoreSteps.cachedMap.put(DataStoreSteps.FILTERED_PRODUCT_WITH_LABEL_WAS_NOW_KEY, productVOsWithShowNowFilter);
 	}
 	
@@ -97,7 +97,7 @@ public class ProductCatalogueUpAndRuniningStep {
 		List<Product> products = (List<Product>) DataStoreSteps.cachedMap.get(DataStoreSteps.PRODUCT_KEY);
 		List<ProductVO> productPVOs = productDataMapperService.process(products);
 		ProductDataFilter filter = new ProductDataFilter(productPVOs, PriceLableType.SHOW_PER_DISCOUNT,ProductSortBy.PRODUCT_PRICE_REDUCTION_DESC);
-		List<ProductVO> productVOsWithShowNowFilter = productDataFilterService.getProcductAfterFilter(filter);
+		List<ProductVO> productVOsWithShowNowFilter = productDataFilterService.applyProductfilter(filter);
 		DataStoreSteps.cachedMap.put(DataStoreSteps.FILTERED_PRODUCT_WITH_LABEL_WAS_NOW_KEY, productVOsWithShowNowFilter);
 	}
 

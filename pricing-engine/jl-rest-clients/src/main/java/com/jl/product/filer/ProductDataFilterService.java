@@ -11,7 +11,7 @@ import com.jl.product.vo.ProductVO;
 public class ProductDataFilterService {
 
 	@SuppressWarnings("unchecked")
-	public List<ProductVO> getProcductAfterFilter(DataFilter<ProductVO> filter) throws NoAppropraiteDataFilterProvidedException{
+	public List<ProductVO> applyProductfilter(DataFilter<ProductVO> filter) throws NoAppropraiteDataFilterProvidedException{
 		if(filter != null) {
 			return (List<ProductVO>) filter.filter();
 		}else {

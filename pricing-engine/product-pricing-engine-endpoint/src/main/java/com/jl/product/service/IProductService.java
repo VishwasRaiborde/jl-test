@@ -11,6 +11,5 @@ import com.jl.product.vo.ProductVO;
 public interface IProductService {
 
 	public List<ProductVO> getProducts() throws NoDataFoundException, ClientCommunicationException;
-	public List<ProductVO> getProducedsWithWithFilter(ProductDataFilter filter) throws NoAppropraiteDataFilterProvidedException, NoDataFoundException, ClientCommunicationException;
-
+	public List<ProductVO> getFilteredProducts(ProductDataFilter filter) throws NoAppropraiteDataFilterProvidedException;
 }
